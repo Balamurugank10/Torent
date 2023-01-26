@@ -1,4 +1,5 @@
 # to_rent
+# Mini-Project
 
 A new Flutter project.
 
