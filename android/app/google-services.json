@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "731877713410",
+    "project_id": "to-rent-fd287",
+    "storage_bucket": "to-rent-fd287.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731877713410:android:4a6b054be5ffc5a60d291b",
+        "android_client_info": {
+          "package_name": "com.example.to_rent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731877713410-tdcofps210mr91j1habo3l5qq4mdrdmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB_SYSKZqBpM93pew72V8KRLbJC-7vRko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "731877713410-tdcofps210mr91j1habo3l5qq4mdrdmf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
