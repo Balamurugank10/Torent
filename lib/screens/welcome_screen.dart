@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -10,8 +11,18 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text("djh")),
+    //var photoURL2 = FirebaseAuth.instance.currentUser?.photoURL;
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //Image.network(photoURL2!),
+            Text("${FirebaseAuth.instance.currentUser!.displayName}"),
+            Text("${FirebaseAuth.instance.currentUser!.email}")
+          ],
+        ),
+      ),
     );
   }
 }

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 Image logoWidget(String ImageName) {
   return Image.asset(
     ImageName,
-    fit: BoxFit.cover,
-    width: 240,
-    height: 240,
+    fit: BoxFit.fitWidth,
+    width: 140,
+    height: 140,
   );
 }
 
@@ -41,7 +41,8 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
   );
 }
 
-Container signButton(BuildContext context, bool isLogin, Function onTap) {
+// ignore: non_constant_identifier_names
+Container FirebaseButton(BuildContext context, String title, Function onTap) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: 50,
@@ -61,7 +62,7 @@ Container signButton(BuildContext context, bool isLogin, Function onTap) {
             borderRadius: BorderRadius.circular(30),
           ))),
       child: Text(
-        isLogin ? 'LOG IN' : 'SIGN UP',
+        title,
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
