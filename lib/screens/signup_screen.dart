@@ -50,18 +50,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
               reusableTextField('Enter Password', Icons.lock_outline, true,
                   _passwordTextController),
               const SizedBox(height: 20),
-              signButton(context, false, () {
-                FirebaseAuth.instance
-                    .createUserWithEmailAndPassword(
-                        email: _emailTextController.text,
-                        password: _passwordTextController.text)
-                    .then((value) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: ((context) => const WelcomeScreen())));
-                });
-              }),
+              // FireBaseButton(context, false, () {
+              //   FirebaseAuth.instance
+              //       .createUserWithEmailAndPassword(
+              //           email: _emailTextController.text,
+              //           password: _passwordTextController.text)
+              //       .then((value) {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: ((context) => const WelcomeScreen())));
+              //   });
+              // }),
               const SizedBox(height: 20),
             ],
           ),
