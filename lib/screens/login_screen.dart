@@ -1,226 +1,280 @@
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-// import '../reusable_widgets/reusable_widgets.dart';
-// import './signup_screen.dart';
-// import './reset_password.dart';
-// import './welcome_screen.dart';
-// import '../widgets/gmail_login.dart';
-
-// class LoginScreen extends StatefulWidget {
-//   const LoginScreen({super.key});
-
-//   @override
-//   State<LoginScreen> createState() => _LoginScreenState();
-// }
-
-// class _LoginScreenState extends State<LoginScreen> {
-//   final TextEditingController _passwordTextController = TextEditingController();
-//   final TextEditingController _emailTextController = TextEditingController();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: const Color.fromARGB(255, 64, 29, 161),
-//       body: Container(
-//         height: MediaQuery.of(context).size.height,
-//         width: MediaQuery.of(context).size.width,
-//         child: SingleChildScrollView(
-//           child: Padding(
-//             padding: EdgeInsets.fromLTRB(
-//                 20, MediaQuery.of(context).size.height * 0.2, 20, 0),
-//             child: Column(
-//               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 logoWidget("assets/images/logo1.jpg"),
-//                 const SizedBox(height: 20),
-//                 reusableTextField('Enter UserName', Icons.person_outline, false,
-//                     _emailTextController),
-//                 const SizedBox(height: 20),
-//                 reusableTextField('Enter Password', Icons.lock_outline, true,
-//                     _passwordTextController),
-//                 forgotPassword(context),
-//                 const SizedBox(height: 20),
-//                 FirebaseButton(context, "LOG IN", () {
-//                   // FirebaseAuth.instance
-//                   //     .signInWithEmailAndPassword(
-//                   //         email: _emailTextController.text,
-//                   //         password: _passwordTextController.text)
-//                   //     .then((value) {
-//                   //   Navigator.push(
-//                   //       context,
-//                   //       MaterialPageRoute(
-//                   //           builder: (context) => const WelcomeScreen()));
-//                   //   //.onError((error, stackTrace) {});
-//                   // });
-//                 }),
-//                 GmailLogin(),
-//                 const SizedBox(height: 20),
-//                 signupOption(context)
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// Row signupOption(context) {
-//   return Row(
-//     mainAxisAlignment: MainAxisAlignment.center,
-//     children: [
-//       const Text(
-//         "Don't have account?",
-//         style: TextStyle(
-//           color: Colors.black45,
-//         ),
-//       ),
-//       GestureDetector(
-//         onTap: () {
-//           Navigator.push(
-//               context, MaterialPageRoute(builder: (context) => SignUpScreen()));
-//         },
-//         child: const Text(
-//           "Sign Up",
-//           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-//         ),
-//       ),
-//     ],
-//   );
-// }
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:to_rent/form_screen.dart';
+
+import 'package:to_rent/reusable_widgets/my_button.dart';
+import 'package:to_rent/screens/forgot_password.dart';
+import 'package:to_rent/services/auth_services.dart';
 import '../reusable_widgets/reusable_widgets.dart';
-import './signup_screen.dart';
-import './welcome_screen.dart';
-import './reset_password.dart';
-import '../widgets/gmail_login.dart';
-import 'package:firebase_core/firebase_core.dart';
+
+import '../reusable_widgets/widget_tile.dart';
+import './main_screen.dart';
+//import './signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final Function()? onTap;
+  const LoginScreen({super.key, required this.onTap});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final formKey = GlobalKey<FormState>();
   String? _email;
   String? _password;
   bool _obscureText = true; //sets for confirm password
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  //sign user in method
+  void signInUser() async {
+    //show loading circle
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+
+    //try sign in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _email.toString(), password: _password.toString());
+
+      // POP THE LOADING CIRCLE
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // POP THE LOADING CIRCLE
+      Navigator.pop(context);
+
+      showErrorMessage(e.code);
+    }
+  }
+
+  void showErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(message),
+        );
+      },
+    );
+  }
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-                20, MediaQuery.of(context).size.height * 0.2, 20, 0),
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  logoWidget("assets/images/logo1.jpg"),
-                  Column(
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                            labelText: "Enter your email",
-                            prefixIcon: Icon(Icons.email_outlined)),
-                        validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Email";
-                          } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return "Please Enter a Valid Email";
-                          }
-                          return null;
-                        },
-                        onSaved: (String? value) {
-                          _email = value;
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      TextFormField(
-                        obscureText: _obscureText,
-                        keyboardType: TextInputType.visiblePassword,
-                        decoration: InputDecoration(
-                            suffixIcon: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _obscureText = !_obscureText;
-                                });
-                              },
-                              child: Icon(_obscureText
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
+        key: scaffoldKey,
+        backgroundColor: Colors.grey[300],
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    logoWidget("assets/images/logo.png"),
+                    Text('Welcome back you\'ve been missed!',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: 16,
+                        )),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                labelText: "Enter your email",
+                                fillColor: Colors.grey.shade200,
+                                filled: true,
+                                prefixIcon: const Icon(Icons.email_outlined)),
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter Email";
+                              } else if (!RegExp(r'\S+@\S+\.\S+')
+                                  .hasMatch(value)) {
+                                return "Please Enter a Valid Email";
+                              }
+                              return null;
+                            },
+                            onChanged: (val) {
+                              _email = val;
+                            },
+                            onSaved: (String? value) {
+                              _email = value;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          child: TextFormField(
+                            obscureText: _obscureText,
+                            keyboardType: TextInputType.visiblePassword,
+                            decoration: InputDecoration(
+                                fillColor: Colors.grey.shade200,
+                                filled: true,
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _obscureText = !_obscureText;
+                                    });
+                                  },
+                                  child: Icon(_obscureText
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                ),
+                                labelText: "Enter your password",
+                                prefixIcon: const Icon(Icons.lock_outline)),
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return "Please enter your password";
+                              }
+                              return null;
+                            },
+                            onChanged: (val) {
+                              _password = val;
+                            },
+                            onSaved: (String? value) {
+                              _password = value;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+                        forgotPassword(context),
+                        MyButton(
+                          onTap: signInUser,
+                          title: 'LOG IN',
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          child: Row(children: [
+                            Expanded(
+                                child: Divider(
+                              thickness: 0.5,
+                              color: Colors.grey[400],
+                            )),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Text(
+                                'Or Continue with',
+                                style: TextStyle(color: Colors.grey[700]),
+                              ),
                             ),
-                            labelText: "Enter your password",
-                            prefixIcon: Icon(Icons.lock_outline)),
-                        validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return "Please enter your password";
-                          }
-                          return null;
-                        },
-                        onSaved: (String? value) {
-                          _password = value;
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      forgotPassword(context),
-                      FirebaseButton(context, 'LOG IN', () {
-                        FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: _email.toString(),
-                                password: _password.toString())
-                            .then((value) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const WelcomeScreen()));
-                        });
-                      }),
-                      const SizedBox(height: 20),
-                      GmailLogin(),
-                      SizedBox(height: 20),
-                      signupOption(context)
-                    ],
-                  ),
-                ],
+                            Expanded(
+                                child: Divider(
+                              thickness: 0.5,
+                              color: Colors.grey[400],
+                            ))
+                          ]),
+                        ),
+
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02),
+                        WidgetTile(
+                          imagePath: 'assets/images/Google.png',
+                          imagePath2: 'assets/images/oogle.png',
+                          onTap: (() => AuthServices().signInWithGoogle()),
+                        ),
+                        //GmailLogin(),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Don't have account?",
+                              style: TextStyle(
+                                color: Colors.black45,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: widget.onTap,
+                              child: const Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+
+                        skipOption(context),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 
-Widget forgotPassword(BuildContext context) {
-  return Container(
-    alignment: Alignment.centerRight,
-    height: 35,
-    width: MediaQuery.of(context).size.width,
-    child: TextButton(
-      child: const Text(
-        'Forgot Password',
-        style: TextStyle(color: Colors.blue),
-      ),
-      onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ResetPassword()));
-      },
+Widget skipOption2(BuildContext context) {
+  return TextButton(
+    child: const Text(
+      'Ask me Later',
+      style: TextStyle(
+          color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 20),
+    ),
+    onPressed: () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const MainScreen()));
+    },
+  );
+}
+
+Widget skipOption(context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const MainScreen()));
+    },
+    child: const Text(
+      "Ask me Later",
+      style: TextStyle(
+          color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 20),
     ),
   );
+}
+
+Widget forgotPassword(BuildContext context) {
+  return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 25.0,
+      ),
+      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+        TextButton(
+          child: const Text(
+            'Forgot Password',
+            style: TextStyle(color: Colors.blue),
+          ),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ForgotPassword()));
+          },
+        )
+      ]));
 }
 
 Row signupOption(context) {
@@ -234,10 +288,11 @@ Row signupOption(context) {
         ),
       ),
       GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => FormScreen()));
-        },
+        // onTap: () {
+        //   Navigator.push(
+        //       context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+        // },
+        //onTap: Widget.onTap,
         child: const Text(
           "Sign Up",
           style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
