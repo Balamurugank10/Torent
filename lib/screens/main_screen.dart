@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../pages/favorite_page.dart';
-import '../pages/home_page.dart';
+
+import '../pages/overview_page.dart';
 import '../pages/profile_page.dart';
 import '../drawer/main_drawer.dart';
 
@@ -19,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   final screens = [
-    const HomePage(),
+    const OverviewPage(),
     const FavoritePage(),
     const Center(
       child: Text('settings'),
