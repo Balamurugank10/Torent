@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => Categories(),
+      create: (ctx) => Categories(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

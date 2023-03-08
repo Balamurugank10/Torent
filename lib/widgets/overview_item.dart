@@ -127,7 +127,7 @@ class OverviewItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               child: Row(children: [
                 Text(
-                  '${product.address}',
+                  '${product.city}',
                   style: const TextStyle(fontSize: 24, color: Colors.black38),
                 )
               ]),

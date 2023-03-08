@@ -13,8 +13,8 @@ class ProductList extends StatelessWidget {
 
     return ListView.builder(
         itemCount: products.length,
-        itemBuilder: (ctx, i) => ChangeNotifierProvider(
-              create: (ctx) => products[i],
+        itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+              value: products[i],
               child: OverviewItem(
                   // products[i].id,
                   // products[i].address,
