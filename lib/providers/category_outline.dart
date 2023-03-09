@@ -15,10 +15,10 @@ class CategoryOutline with ChangeNotifier {
   final String country;
   final int amount;
   final String street;
-  final double bedRooms;
-  final double bathRooms;
+  final int bedRooms;
+  final int bathRooms;
   final double sqft;
-  final double garage;
+  final int garage;
   final String type;
   final int pincode;
   final String description;

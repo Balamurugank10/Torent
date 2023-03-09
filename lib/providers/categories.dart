@@ -21,7 +21,8 @@ class Categories with ChangeNotifier {
         garage: 2,
         area: 'Manjakuppam',
         pincode: 607002,
-        description: 'jdhkjabjb jhdjbd jgdhbnd bjkdbjd nbdb da.',
+        description:
+            'jdhkjabjb jhdjbd jgdhbnd bjkdhjghggh ghfghf fghfghfgf ghfgfbjd nbdb da.',
         mobile: 9089772826,
         ownerName: 'Bala',
         email: 'bala345@gmail.com',

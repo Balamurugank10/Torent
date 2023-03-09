@@ -472,19 +472,44 @@ class _DetailScreenState extends State<DetailScreen> {
                       const SizedBox(height: 10),
                     ],
                   )),
-              ElevatedButton(
-                  onPressed: () async {
-                    //For Call Options
-
-                    // final _call = 'tel:${loadedProducts.mobile}';
-                    // final _txt = 'sms:${loadedProducts.mobile}';
-                    final Uri callUrl =
-                        Uri(scheme: 'tel', path: "${loadedProducts.mobile}");
-                    if (await canLaunchUrl(callUrl)) {
-                      await launchUrl(callUrl);
-                    }
-                  },
-                  child: const Text('Call')),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        final Uri callUrl = Uri(
+                            scheme: 'tel', path: "${loadedProducts.mobile}");
+                        if (await canLaunchUrl(callUrl)) {
+                          await launchUrl(callUrl);
+                        }
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Icon(Icons.call_outlined, size: 24.0),
+                          SizedBox(width: 5),
+                          Text('Call'),
+                        ],
+                      )),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                      onPressed: () async {
+                        final Uri callUrl = Uri(
+                            scheme: 'sms', path: "${loadedProducts.mobile}");
+                        if (await canLaunchUrl(callUrl)) {
+                          await launchUrl(callUrl);
+                        }
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Icon(Icons.message_outlined, size: 24.0),
+                          SizedBox(width: 5),
+                          Text('Message'),
+                        ],
+                      )),
+                ],
+              ),
               const SizedBox(height: 10),
             ]),
           ),
