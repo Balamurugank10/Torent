@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './category_outline.dart';
 
 class Categories with ChangeNotifier {
-  List<CategoryOutline> _items = [
+  final List<CategoryOutline> _items = [
     CategoryOutline(
         id: '1',
         imageUrl:

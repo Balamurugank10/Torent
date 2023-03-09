@@ -23,9 +23,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               backgroundImage: NetworkImage(user.photoURL!),
             ),
             Text(
-              'Name: ' + user.displayName!,
+              'Name: ${user.displayName!}',
             ),
-            Text('Email :' + user.email!),
+            Text('Email :${user.email!}'),
           ],
         ),
       ),

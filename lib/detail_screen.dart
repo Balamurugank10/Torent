@@ -32,11 +32,11 @@ class _DetailScreenState extends State<DetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('house'),
+        title: const Text('house'),
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.share_outlined,
               )),
         ],
@@ -70,7 +70,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     },
                     //enableInfiniteScroll:
                     //   false, //last image can't mingle with the 1st image
-                    autoPlayInterval: Duration(seconds: 4))),
+                    autoPlayInterval: const Duration(seconds: 4))),
             Positioned(
                 left: MediaQuery.of(context).size.width / 2.7,
                 bottom: 10,
@@ -78,23 +78,23 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: AnimatedSmoothIndicator(
                   activeIndex: activeIndex,
                   count: urlImages.length,
-                  effect: WormEffect(
+                  effect: const WormEffect(
                     activeDotColor: Colors.blue,
                   ),
                 )))
           ]),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             child: Column(children: [
               Container(
                 child: Row(
                   children: [
                     Text(
                       '₹${loadedProducts.amount}',
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold),
                     ),
-                    Text(
+                    const Text(
                       '/Month',
                       style: TextStyle(
                         fontSize: 26,
@@ -106,37 +106,38 @@ class _DetailScreenState extends State<DetailScreen> {
               Container(
                 child: Row(
                   children: [
-                    Icon(Icons.location_pin, color: Colors.blue),
-                    SizedBox(width: 5),
+                    const Icon(Icons.location_pin, color: Colors.blue),
+                    const SizedBox(width: 5),
                     Text(
-                      '${loadedProducts.city}',
-                      style: TextStyle(fontSize: 24),
+                      loadedProducts.city,
+                      style: const TextStyle(fontSize: 24),
                     )
                   ],
                 ),
               ),
-              SizedBox(height: 10),
-              Divider(
+              const SizedBox(height: 10),
+              const Divider(
                 thickness: 0.5,
                 color: Colors.black,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                 child: Row(children: [
-                  Text(
+                  const Text(
                     'Property type',
                     style: TextStyle(fontSize: 18),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
-                    '${loadedProducts.type}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    loadedProducts.type,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ]),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                   //height: 70,
                   child: Row(
@@ -147,48 +148,48 @@ class _DetailScreenState extends State<DetailScreen> {
                       children: [
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.bed_outlined,
                               color: Colors.orange,
                               size: 35,
                             ),
-                            SizedBox(width: 4),
+                            const SizedBox(width: 4),
                             Text(
                               '${loadedProducts.bedRooms}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(width: 12),
+                            const SizedBox(width: 12),
                           ],
                         ),
-                        Text(
+                        const Text(
                           'Bedrooms',
                           style: TextStyle(
                             fontSize: 20,
                           ),
                         )
                       ]),
-                  SizedBox(width: 30),
+                  const SizedBox(width: 30),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.shower_outlined,
                             color: Colors.deepOrange,
                             size: 35,
                           ),
-                          SizedBox(width: 4),
+                          const SizedBox(width: 4),
                           Text(
                             '${loadedProducts.bathRooms}',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(width: 12),
+                          const SizedBox(width: 12),
                         ],
                       ),
-                      Text(
+                      const Text(
                         ' Bathrooms',
                         style: TextStyle(
                           fontSize: 20,
@@ -198,10 +199,8 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                 ],
               )),
-              SizedBox(height: 10),
-              Container(
-                  // height: 160,
-                  child: Row(
+              const SizedBox(height: 10),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Column(
@@ -209,45 +208,45 @@ class _DetailScreenState extends State<DetailScreen> {
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.car_repair_outlined,
+                            const Icon(Icons.car_repair_outlined,
                                 color: Colors.orange, size: 35),
-                            SizedBox(width: 4),
+                            const SizedBox(width: 4),
                             Text(
                               '${loadedProducts.garage}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(width: 12),
+                            const SizedBox(width: 12),
                           ],
                         ),
-                        Text(
+                        const Text(
                           'Garage',
                           style: TextStyle(
                             fontSize: 20,
                           ),
                         )
                       ]),
-                  SizedBox(width: 57),
+                  const SizedBox(width: 57),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.square_foot_outlined,
                             color: Colors.green,
                             size: 35,
                           ),
-                          SizedBox(width: 4),
+                          const SizedBox(width: 4),
                           Text(
                             '${loadedProducts.sqft}',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(width: 12),
+                          const SizedBox(width: 12),
                         ],
                       ),
-                      Text(
+                      const Text(
                         'Sq.feet',
                         style: TextStyle(
                           fontSize: 20,
@@ -256,47 +255,44 @@ class _DetailScreenState extends State<DetailScreen> {
                     ],
                   ),
                 ],
-              )),
-              SizedBox(height: 10),
-              Divider(
+              ),
+              const SizedBox(height: 10),
+              const Divider(
                 thickness: 0.5,
                 color: Colors.black,
               ),
-              SizedBox(height: 10),
-              Container(
-                child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Description',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                      Text(
-                        '${loadedProducts.description}',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ]),
-              ),
-              SizedBox(height: 10),
-              Divider(
+              const SizedBox(height: 10),
+              Column(
+                  //mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Description',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    Text(
+                      loadedProducts.description,
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  ]),
+              const SizedBox(height: 10),
+              const Divider(
                 thickness: 0.5,
                 color: Colors.black,
               ),
-              SizedBox(height: 10),
-              Container(
-                  child: Row(
+              const SizedBox(height: 10),
+              Row(
                 children: [
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Details',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
-                        Row(children: [
+                        Row(children: const [
                           Icon(Icons.calendar_month_outlined),
                           SizedBox(width: 10),
                           Text(
@@ -306,29 +302,29 @@ class _DetailScreenState extends State<DetailScreen> {
                         ])
                       ]),
                 ],
-              )),
-              SizedBox(height: 10),
-              Divider(
+              ),
+              const SizedBox(height: 10),
+              const Divider(
                 thickness: 0.5,
                 color: Colors.black,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Location info',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text(
                                 'Landmark',
                                 style: TextStyle(
@@ -367,69 +363,70 @@ class _DetailScreenState extends State<DetailScreen> {
                               SizedBox(height: 7),
                             ],
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${loadedProducts.landmark}',
-                                  style: TextStyle(fontSize: 17),
+                                  loadedProducts.landmark,
+                                  style: const TextStyle(fontSize: 17),
                                 ),
-                                SizedBox(height: 7),
+                                const SizedBox(height: 7),
                                 Text(
-                                  '${loadedProducts.area}',
-                                  style: TextStyle(fontSize: 17),
+                                  loadedProducts.area,
+                                  style: const TextStyle(fontSize: 17),
                                 ),
-                                SizedBox(height: 7),
+                                const SizedBox(height: 7),
                                 Text(
-                                  '${loadedProducts.city}',
-                                  style: TextStyle(fontSize: 17),
+                                  loadedProducts.city,
+                                  style: const TextStyle(fontSize: 17),
                                 ),
-                                SizedBox(height: 7),
+                                const SizedBox(height: 7),
                                 Text(
-                                  '${loadedProducts.state}',
-                                  style: TextStyle(fontSize: 17),
+                                  loadedProducts.state,
+                                  style: const TextStyle(fontSize: 17),
                                 ),
-                                SizedBox(height: 7),
+                                const SizedBox(height: 7),
                                 Text(
-                                  '${loadedProducts.country}',
-                                  style: TextStyle(fontSize: 17),
+                                  loadedProducts.country,
+                                  style: const TextStyle(fontSize: 17),
                                 ),
-                                SizedBox(height: 7),
+                                const SizedBox(height: 7),
                                 Text(
                                   '${loadedProducts.pincode}',
-                                  style: TextStyle(fontSize: 17),
+                                  style: const TextStyle(fontSize: 17),
                                 ),
-                                SizedBox(height: 7),
+                                const SizedBox(height: 7),
                               ])
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                     ],
                   )),
-              ElevatedButton(onPressed: () {}, child: Text('Show on Map')),
-              SizedBox(height: 10),
-              Divider(
+              ElevatedButton(
+                  onPressed: () {}, child: const Text('Show on Map')),
+              const SizedBox(height: 10),
+              const Divider(
                 thickness: 0.5,
                 color: Colors.black,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Contact',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text(
                                 'Owner Name',
                                 style: TextStyle(
@@ -450,253 +447,49 @@ class _DetailScreenState extends State<DetailScreen> {
                               SizedBox(height: 7),
                             ],
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${loadedProducts.ownerName}',
-                                  style: TextStyle(fontSize: 17),
+                                  loadedProducts.ownerName,
+                                  style: const TextStyle(fontSize: 17),
                                 ),
-                                SizedBox(height: 7),
+                                const SizedBox(height: 7),
                                 Text(
                                   '+91 ${loadedProducts.mobile}',
-                                  style: TextStyle(fontSize: 17),
+                                  style: const TextStyle(fontSize: 17),
                                 ),
-                                SizedBox(height: 7),
+                                const SizedBox(height: 7),
                                 Text(
-                                  '${loadedProducts.email}',
-                                  style: TextStyle(fontSize: 17),
+                                  loadedProducts.email,
+                                  style: const TextStyle(fontSize: 17),
                                 ),
-                                SizedBox(height: 7),
+                                const SizedBox(height: 7),
                               ])
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                     ],
                   )),
-              ElevatedButton(onPressed: () {}, child: Text('Call')),
-              SizedBox(height: 10),
+              ElevatedButton(
+                  onPressed: () async {
+                    //For Call Options
+
+                    // final _call = 'tel:${loadedProducts.mobile}';
+                    // final _txt = 'sms:${loadedProducts.mobile}';
+                    final Uri callUrl =
+                        Uri(scheme: 'tel', path: "${loadedProducts.mobile}");
+                    if (await canLaunchUrl(callUrl)) {
+                      await launchUrl(callUrl);
+                    }
+                  },
+                  child: const Text('Call')),
+              const SizedBox(height: 10),
             ]),
           ),
         ]),
       )),
     );
-    //  Scaffold(
-    //   appBar: AppBar(
-    //     title: Text(loadedProducts.type),
-    //   ),
-    //   body: SingleChildScrollView(
-    //       child: Column(children: [
-    //     Container(
-    //         height: 300,
-    //         width: double.infinity,
-    //         child: Image.network(
-    //           loadedProducts.imageUrl,
-    //           fit: BoxFit.cover,
-    //         )),
-    //     Column(children: [
-    //       Container(
-    //         child: Row(
-    //           children: [
-    //             Text(
-    //               '₹${loadedProducts.amount}',
-    //               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-    //             ),
-    //             Text(
-    //               '/Month',
-    //               style: TextStyle(
-    //                 fontSize: 30,
-    //               ),
-    //             )
-    //           ],
-    //         ),
-    //       ),
-    //       Container(
-    //         child: Row(
-    //           children: [
-    //             Icon(Icons.location_pin),
-    //             SizedBox(width: 5),
-    //             Text(
-    //               '${loadedProducts.address}',
-    //               style: TextStyle(fontSize: 24),
-    //             )
-    //           ],
-    //         ),
-    //       ),
-    //       SizedBox(height: 20),
-    //       Divider(),
-    //       Container(
-    //         child: Row(children: [
-    //           Text(
-    //             'Property type',
-    //             style: TextStyle(fontSize: 18),
-    //           ),
-    //           SizedBox(
-    //             width: 10,
-    //           ),
-    //           Text(
-    //             '${loadedProducts.type}',
-    //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-    //           ),
-    //         ]),
-    //       ),
-    //       SizedBox(height: 10),
-    //       Container(
-    //           //height: 70,
-    //           child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.start,
-    //         children: [
-    //           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    //             Row(
-    //               children: [
-    //                 Icon(
-    //                   Icons.bed_outlined,
-    //                   color: Colors.orange,
-    //                   size: 35,
-    //                 ),
-    //                 SizedBox(width: 4),
-    //                 Text(
-    //                   '${loadedProducts.bedRooms}',
-    //                   style:
-    //                       TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    //                 ),
-    //                 SizedBox(width: 12),
-    //               ],
-    //             ),
-    //             Text(
-    //               'Bedrooms',
-    //               style: TextStyle(
-    //                 fontSize: 20,
-    //               ),
-    //             )
-    //           ]),
-    //           SizedBox(width: 30),
-    //           Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               Row(
-    //                 children: [
-    //                   Icon(
-    //                     Icons.shower_outlined,
-    //                     color: Colors.deepOrange,
-    //                     size: 35,
-    //                   ),
-    //                   SizedBox(width: 4),
-    //                   Text(
-    //                     '${loadedProducts.bathRooms}',
-    //                     style: TextStyle(
-    //                         fontSize: 20, fontWeight: FontWeight.bold),
-    //                   ),
-    //                   SizedBox(width: 12),
-    //                 ],
-    //               ),
-    //               Text(
-    //                 ' Bathrooms',
-    //                 style: TextStyle(
-    //                   fontSize: 20,
-    //                 ),
-    //               )
-    //             ],
-    //           ),
-    //         ],
-    //       )),
-    //       SizedBox(height: 10),
-    //       Container(
-    //           // height: 160,
-    //           child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.start,
-    //         children: [
-    //           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    //             Row(
-    //               children: [
-    //                 Icon(Icons.car_repair_outlined,
-    //                     color: Colors.orange, size: 35),
-    //                 SizedBox(width: 4),
-    //                 Text(
-    //                   '${loadedProducts.garage}',
-    //                   style:
-    //                       TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    //                 ),
-    //                 SizedBox(width: 12),
-    //               ],
-    //             ),
-    //             Text(
-    //               'Garage',
-    //               style: TextStyle(
-    //                 fontSize: 20,
-    //               ),
-    //             )
-    //           ]),
-    //           SizedBox(width: 57),
-    //           Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               Row(
-    //                 children: [
-    //                   Icon(
-    //                     Icons.square_foot_outlined,
-    //                     color: Colors.green,
-    //                     size: 35,
-    //                   ),
-    //                   SizedBox(width: 4),
-    //                   Text(
-    //                     '${loadedProducts.sqft}',
-    //                     style: TextStyle(
-    //                         fontSize: 20, fontWeight: FontWeight.bold),
-    //                   ),
-    //                   SizedBox(width: 12),
-    //                 ],
-    //               ),
-    //               Text(
-    //                 'Sq.feet',
-    //                 style: TextStyle(
-    //                   fontSize: 20,
-    //                 ),
-    //               )
-    //             ],
-    //           ),
-    //         ],
-    //       )),
-    //       Divider(),
-    //       Container(
-    //           child: Row(
-    //         children: [
-    //           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    //             Text(
-    //               'Description',
-    //               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-    //             ),
-    //             Text(
-    //               'jdkhfuidhhhhhhhhg',
-    //               style: TextStyle(fontSize: 18),
-    //             ),
-    //           ]),
-    //         ],
-    //       )),
-    //       Divider(),
-    //       Container(
-    //           child: Row(
-    //         children: [
-    //           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    //             Text(
-    //               'Details',
-    //               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-    //             ),
-    //             Row(children: [
-    //               Icon(Icons.calendar_month_outlined),
-    //               SizedBox(width: 10),
-    //               Text(
-    //                 'Updated on February 23, 2023',
-    //                 style: TextStyle(fontSize: 18),
-    //               ),
-    //             ])
-    //           ]),
-    //         ],
-    //       )),
-    //       Divider(),
-    //     ]),
-    //   ])),
-    // );
   }
 }

@@ -15,7 +15,7 @@ class ProductList extends StatelessWidget {
         itemCount: products.length,
         itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
               value: products[i],
-              child: OverviewItem(
+              child: const OverviewItem(
                   // products[i].id,
                   // products[i].address,
                   // products[i].amount,

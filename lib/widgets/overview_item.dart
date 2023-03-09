@@ -6,6 +6,8 @@ import 'package:to_rent/detail_screen.dart';
 import 'package:to_rent/providers/category_outline.dart';
 
 class OverviewItem extends StatelessWidget {
+  const OverviewItem({super.key});
+
   //const OverviewItem({super.key});
 
   // final String id;
@@ -127,7 +129,7 @@ class OverviewItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               child: Row(children: [
                 Text(
-                  '${product.city}',
+                  product.city,
                   style: const TextStyle(fontSize: 24, color: Colors.black38),
                 )
               ]),

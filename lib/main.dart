@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         home: const AuthPage(),
         debugShowCheckedModeBanner: false,
         routes: {
-          DetailScreen.routeName: (context) => DetailScreen(),
+          DetailScreen.routeName: (context) => const DetailScreen(),
         },
       ),
     );
