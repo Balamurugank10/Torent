@@ -11,6 +11,6 @@ class OverviewPage extends StatefulWidget {
 class _OverviewPageState extends State<OverviewPage> {
   @override
   Widget build(BuildContext context) {
-    return const ProductList();
+    return const ProductList(false);
   }
 }

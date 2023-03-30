@@ -59,7 +59,7 @@ class OverviewItem extends StatelessWidget {
                     topRight: Radius.circular(15),
                   ),
                   child: Image.network(
-                    product.imageUrl,
+                    product.imglist[0],
                     height: 250,
                     width: double.infinity,
                     fit: BoxFit.cover,

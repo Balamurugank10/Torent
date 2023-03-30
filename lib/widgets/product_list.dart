@@ -4,12 +4,15 @@ import '../providers/categories.dart';
 import './overview_item.dart';
 
 class ProductList extends StatelessWidget {
-  const ProductList({super.key});
+  // const ProductList({super.key});
+  final bool showFavs;
+
+  const ProductList(this.showFavs, {super.key});
 
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<Categories>(context);
-    final products = productsData.items;
+    final products = showFavs ? productsData.favoriteItems : productsData.items;
 
     return ListView.builder(
         itemCount: products.length,

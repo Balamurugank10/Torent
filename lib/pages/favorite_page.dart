@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import '../widgets/product_list.dart';
 
-class FavoritePage extends StatefulWidget {
-  const FavoritePage({super.key});
+class FavoriteScreen extends StatefulWidget {
+  const FavoriteScreen({super.key});
 
   @override
-  State<FavoritePage> createState() => _FavoritePageState();
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
 }
 
-class _FavoritePageState extends State<FavoritePage> {
+class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('favorite'));
+    return const ProductList(true);
   }
 }

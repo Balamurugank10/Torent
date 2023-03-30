@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../pages/favorite_page.dart';
-
+import '../owner/post_screen.dart';
+import '../owner/upload_screen.dart';
 import '../pages/overview_page.dart';
 import '../pages/profile_page.dart';
 import '../drawer/main_drawer.dart';
+import '../a.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -21,11 +23,9 @@ class _MainScreenState extends State<MainScreen> {
 
   final screens = [
     const OverviewPage(),
-    const FavoritePage(),
-    const Center(
-      child: Text('settings'),
-    ),
-    const ProfilePage(),
+    const FavoriteScreen(),
+    const UploadScreen(),
+    const A(),
   ];
 
   final user = FirebaseAuth.instance.currentUser;
@@ -60,7 +60,7 @@ class _MainScreenState extends State<MainScreen> {
               icon: const Icon(Icons.favorite_border_outlined),
               label: 'Favorite'),
           BottomNavigationBarItem(
-              icon: const Icon(Icons.search_outlined), label: user?.email),
+              icon: const Icon(Icons.post_add), label: user?.email),
           const BottomNavigationBarItem(
               icon: Icon(Icons.person_outline_sharp), label: 'Profile'),
         ],

@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 class CategoryOutline with ChangeNotifier {
   final String id;
 
-  final String imageUrl;
+  final List imglist;
 
   //final String address;
   final String landmark;
@@ -30,7 +30,7 @@ class CategoryOutline with ChangeNotifier {
 
   CategoryOutline(
       {required this.id,
-      required this.imageUrl,
+      required this.imglist,
       required this.type,
       required this.amount,
       required this.sqft,
