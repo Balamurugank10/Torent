@@ -20,15 +20,14 @@ class User {
   final int maintenance;
   final double sqft;
   final double carpet;
+  final String country;
   final String description;
   final int pincode;
   final String landmark;
   final DateTime availableDate;
 
-  //final DateTime availableDate;
-
   User({
-    this.id = " ",
+    this.id = "",
     required this.name,
     required this.age,
     required this.bedrooms,
@@ -50,6 +49,7 @@ class User {
     required this.sqft,
     required this.state,
     required this.street,
+    required this.country,
     required this.availableDate,
   });
 
@@ -77,32 +77,33 @@ class User {
         'mobile': mobile,
         'rent': rent,
         'date': availableDate,
-        //'availableDate': availableDate,
+        'country': country
       };
 
   static User fromJson(Map<String, dynamic> json) => User(
+        id: json['id'],
         name: json['name'],
         age: json['age'],
         bedrooms: json['bedrooms'],
         bathrooms: json['bathrooms'],
-        area: json['area'],
-        carpet: json['carpet'],
-        city: json['city'],
-        description: json['description'],
-        email: json['email'],
-        flatno: json['flatno'],
+        parking: json['parking'],
         furnished: json['furnished'],
+        sqft: json['sqft'],
+        carpet: json['carpet'],
+        description: json['description'],
+        flatno: json['flatno'],
+        street: json['street'],
+        area: json['area'],
+        city: json['city'],
+        state: json['state'],
+        pincode: json['pincode'],
         landmark: json['landmark'],
         maintenance: json['maintenance'],
-        mobile: json['mobile'],
-        parking: json['parking'],
-        pincode: json['pincode'],
         propType: json['type'],
+        email: json['email'],
+        mobile: json['mobile'],
         rent: json['rent'],
-        sqft: json['sqft'],
-        state: json['state'],
-        street: json['street'],
+        country: json['country'],
         availableDate: (json['date'] as Timestamp).toDate(),
-        id: json['id'],
       );
 }

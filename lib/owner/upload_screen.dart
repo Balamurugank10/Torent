@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:intl/intl.dart';
 import '../user.dart';
+import './add_image.dart';
+import 'package:csc_picker/csc_picker.dart';
+import 'package:email_validator/email_validator.dart';
 //import '../validator/emailValidator.dart';
 
 class UploadScreen extends StatefulWidget {
@@ -48,8 +51,8 @@ class _UploadScreenState extends State<UploadScreen> {
   final flatNoController = TextEditingController();
   final streetController = TextEditingController();
   final areaController = TextEditingController();
-  final cityController = TextEditingController();
-  final stateController = TextEditingController();
+  //final cityController = TextEditingController();
+  //final stateController = TextEditingController();
   final pincodeController = TextEditingController();
   final landmarkController = TextEditingController();
   final carpetAreaController = TextEditingController();
@@ -64,6 +67,10 @@ class _UploadScreenState extends State<UploadScreen> {
   late String furnishedType;
   late String bathrooms;
   late String parking;
+
+  String country = "";
+  String state = "";
+  String city = "";
 
   @override
   Widget build(BuildContext context) {
@@ -301,34 +308,6 @@ class _UploadScreenState extends State<UploadScreen> {
                   },
                 ),
                 const SizedBox(height: 15),
-                labels('Preferred Tenant Type', false),
-                const SizedBox(height: 10),
-                CustomCheckBoxGroup(
-                    buttonTextStyle: const ButtonTextStyle(
-                      selectedColor: Colors.white,
-                      unSelectedColor: Colors.blue,
-                      textStyle: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                    unSelectedColor: Theme.of(context).canvasColor,
-                    buttonLables: const [
-                      "Family",
-                      "bachelor",
-                    ],
-                    buttonValuesList: const [
-                      "Family",
-                      "bachelor",
-                    ],
-                    checkBoxButtonValues: (values) {},
-                    autoWidth: true,
-                    wrapAlignment: WrapAlignment.start,
-                    enableShape: true,
-                    selectedBorderColor: Colors.blue,
-                    enableButtonWrap: true,
-                    unSelectedBorderColor: Colors.grey,
-                    selectedColor: Colors.blue),
-                const SizedBox(height: 15),
                 TextFormField(
                   controller: monthlyRentController,
                   validator: (value) {
@@ -425,35 +404,33 @@ class _UploadScreenState extends State<UploadScreen> {
                   style: TextStyle(fontSize: 30),
                 ),
                 const SizedBox(height: 10),
-                TextFormField(
-                  controller: flatNoController,
-                  decoration: InputDecoration(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("Flat No "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      prefix: const Text('No. '),
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                  validator: (value) {
-                    return value!.isEmpty ? 'Required field' : null;
+                CSCPicker(
+                  showCities: true,
+                  showStates: true,
+                  defaultCountry: CscCountry.India,
+                  disableCountry: true,
+                  countryDropdownLabel: "Country*",
+                  stateDropdownLabel: "State*",
+                  cityDropdownLabel: "City*",
+                  layout: Layout.vertical,
+                  onCountryChanged: (value) {
+                    setState(() {
+                      country = value;
+                      print(country);
+                    });
                   },
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: streetController,
-                  decoration: const InputDecoration(
-                      labelText: 'Street',
-                      floatingLabelStyle: TextStyle(color: Colors.purple),
-                      border: OutlineInputBorder()),
-                  onSaved: (newValue) {},
+                  onStateChanged: (value) {
+                    setState(() {
+                      state = value.toString();
+                      print(state);
+                    });
+                  },
+                  onCityChanged: (value) {
+                    setState(() {
+                      city = value.toString();
+                      print(city);
+                    });
+                  },
                 ),
                 const SizedBox(height: 15),
                 TextFormField(
@@ -478,40 +455,28 @@ class _UploadScreenState extends State<UploadScreen> {
                 ),
                 const SizedBox(height: 15),
                 TextFormField(
-                  controller: cityController,
-                  decoration: InputDecoration(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("City "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      //labelText: 'City *',
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
+                  controller: streetController,
+                  decoration: const InputDecoration(
+                      labelText: 'Street',
+                      floatingLabelStyle: TextStyle(color: Colors.purple),
+                      border: OutlineInputBorder()),
                   onSaved: (newValue) {},
-                  validator: (value) {
-                    return value!.isEmpty ? 'Required field' : null;
-                  },
                 ),
                 const SizedBox(height: 15),
                 TextFormField(
-                  controller: stateController,
+                  controller: flatNoController,
                   decoration: InputDecoration(
                       label: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: const [
-                          Text("State "),
+                          Text("Flat No "),
                           Text('*', style: TextStyle(color: Colors.red)),
                           Padding(
                             padding: EdgeInsets.all(3.0),
                           ),
                         ],
                       ),
+                      prefix: const Text('No. '),
                       floatingLabelStyle: const TextStyle(color: Colors.purple),
                       border: const OutlineInputBorder()),
                   onSaved: (newValue) {},
@@ -613,27 +578,33 @@ class _UploadScreenState extends State<UploadScreen> {
                 ),
                 const SizedBox(height: 15),
                 TextFormField(
-                    controller: emailOwnerController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                        label: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Text("Email "),
-                            Text('*', style: TextStyle(color: Colors.red)),
-                            Padding(
-                              padding: EdgeInsets.all(3.0),
-                            ),
-                          ],
-                        ),
-                        floatingLabelStyle:
-                            const TextStyle(color: Colors.purple),
-                        border: const OutlineInputBorder()),
-                    onSaved: (newValue) {},
-                    validator: ((value) {
-                      // _validateEmail(value!);
-                      return null;
-                    })),
+                  controller: emailOwnerController,
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: [AutofillHints.email],
+                  validator: (value) =>
+                      value != null && !EmailValidator.validate(value)
+                          ? 'Enter a valid Email'
+                          : null,
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.mail),
+                      label: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Text("Email "),
+                          Text('*', style: TextStyle(color: Colors.red)),
+                          Padding(
+                            padding: EdgeInsets.all(3.0),
+                          ),
+                        ],
+                      ),
+                      floatingLabelStyle: const TextStyle(color: Colors.purple),
+                      border: const OutlineInputBorder()),
+                  onSaved: (newValue) {},
+                ),
+                FloatingActionButton(onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AddImage()));
+                }),
                 const SizedBox(height: 15),
                 ElevatedButton(
                     onPressed: () {
@@ -652,7 +623,7 @@ class _UploadScreenState extends State<UploadScreen> {
                         bathrooms: int.parse(bathrooms),
                         area: areaController.text,
                         carpet: double.parse(carpetAreaController.text),
-                        city: cityController.text,
+                        city: city,
                         description: descriptionController.text,
                         email: emailOwnerController.text,
                         flatno: flatNoController.text,
@@ -665,7 +636,8 @@ class _UploadScreenState extends State<UploadScreen> {
                         propType: propertyType,
                         rent: int.parse(monthlyRentController.text),
                         sqft: double.parse(sqftController.text),
-                        state: stateController.text,
+                        state: state,
+                        country: country,
                         street: streetController.text,
                         availableDate:
                             DateTime.parse(availableDateController.text),

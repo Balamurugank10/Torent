@@ -1,49 +1,22 @@
-//import 'package:flutter/src/widgets/container.dart';
-//import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_rent/detail_screen.dart';
 import 'package:to_rent/providers/category_outline.dart';
 
-class OverviewItem extends StatelessWidget {
+class OverviewItem extends StatefulWidget {
   const OverviewItem({super.key});
 
-  //const OverviewItem({super.key});
+  @override
+  State<OverviewItem> createState() => _OverviewItemState();
+}
 
-  // final String id;
-
-  // final String imageUrl;
-
-  // final String address;
-  // final int amount;
-  // final double bedRooms;
-  // final double bathRooms;
-  // final double sqft;
-  // final double garage;
-  // final String type;
-
-  // final bool isFavorite;
-
-  // const OverviewItem(
-  //     this.id,
-  //     this.address,
-  //     this.amount,
-  //     this.bathRooms,
-  //     this.bedRooms,
-  //     this.garage,
-  //     this.imageUrl,
-  //     this.isFavorite,
-  //     this.sqft,
-  //     this.type,
-  //     {super.key});
-
+class _OverviewItemState extends State<OverviewItem> {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<CategoryOutline>(context);
     return InkWell(
       onTap: () {
-        Navigator.of(context)
-            .pushNamed(DetailScreen.routeName, arguments: product.id);
+        Navigator.of(context).pushNamed("detail", arguments: product.id);
       },
       child: Card(
           shape:

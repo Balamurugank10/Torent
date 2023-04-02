@@ -5,6 +5,7 @@ import 'package:to_rent/reusable_widgets/my_button.dart';
 import 'package:to_rent/screens/forgot_password.dart';
 import 'package:to_rent/services/auth_services.dart';
 import '../reusable_widgets/reusable_widgets.dart';
+import 'package:email_validator/email_validator.dart';
 
 import '../reusable_widgets/widget_tile.dart';
 import './main_screen.dart';
@@ -89,20 +90,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: TextFormField(
+                            autofillHints: [AutofillHints.email],
                             decoration: InputDecoration(
                                 labelText: "Enter your email",
                                 fillColor: Colors.grey.shade200,
                                 filled: true,
                                 prefixIcon: const Icon(Icons.email_outlined)),
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return "Please Enter Email";
-                              } else if (!RegExp(r'\S+@\S+\.\S+')
-                                  .hasMatch(value)) {
-                                return "Please Enter a Valid Email";
-                              }
-                              return null;
-                            },
+                            validator: (value) =>
+                                value != null && !EmailValidator.validate(value)
+                                    ? 'Enter a valid Email'
+                                    : null,
                             onChanged: (val) {
                               _email = val;
                             },
