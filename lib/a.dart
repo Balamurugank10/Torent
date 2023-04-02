@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import './user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import './detail_screen.dart';
-//import 'package:provider/provider.dart';
 
 class A extends StatefulWidget {
   const A({super.key});
@@ -13,12 +12,6 @@ class A extends StatefulWidget {
 
 class _AState extends State<A> {
   String city = "";
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   addData();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +41,7 @@ class _AState extends State<A> {
                     itemBuilder: (context, index) {
                       var data = snapshot.data!.docs[index].data()
                           as Map<String, dynamic>;
-                      print(data);
-                      print('before go to detail id: ${data["id"]}');
-                      // final f = FirebaseFirestore.instance
-                      //   .collection('users')
-                      // .doc("id");
 
-                      // print(f);
                       if (city.isEmpty) {
                         return InkWell(
                           onTap: () {

@@ -37,7 +37,10 @@ class _AddImageState extends State<AddImage> {
                   });
                   uploadFile().whenComplete(() => Navigator.of(context).pop());
                 },
-                child: const Text('upload'))
+                child: const Text(
+                  'upload',
+                  style: TextStyle(color: Colors.white),
+                ))
           ],
         ),
         body: Stack(
@@ -121,12 +124,13 @@ class _AddImageState extends State<AddImage> {
           i++;
         });
       });
+      print(ref);
     }
 
     @override
     void initState() {
       super.initState();
-      imgRef = FirebaseFirestore.instance.collection('imageUrls');
+      imgRef = FirebaseFirestore.instance.collection('users');
     }
   }
 }

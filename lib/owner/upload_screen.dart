@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +9,7 @@ import '../user.dart';
 import './add_image.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:image_picker/image_picker.dart';
 //import '../validator/emailValidator.dart';
 
 class UploadScreen extends StatefulWidget {
@@ -71,6 +75,8 @@ class _UploadScreenState extends State<UploadScreen> {
   String country = "";
   String state = "";
   String city = "";
+
+  String img = "";
 
   @override
   Widget build(BuildContext context) {
@@ -385,7 +391,7 @@ class _UploadScreenState extends State<UploadScreen> {
                   maxLines: 4,
                   keyboardType: TextInputType.multiline,
                   decoration: const InputDecoration(
-                      hintText: "Description",
+                      hintText: "Description about your property in 100 words",
                       suffix: Text(
                         '*',
                         style: TextStyle(color: Colors.red),
@@ -503,7 +509,7 @@ class _UploadScreenState extends State<UploadScreen> {
                       border: const OutlineInputBorder()),
                   onSaved: (newValue) {},
                   validator: (value) {
-                    return value!.isEmpty ? 'Required field' : null;
+                    return value!.length != 6 ? 'Required field' : null;
                   },
                 ),
                 const SizedBox(height: 15),
@@ -601,15 +607,44 @@ class _UploadScreenState extends State<UploadScreen> {
                       border: const OutlineInputBorder()),
                   onSaved: (newValue) {},
                 ),
-                FloatingActionButton(onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AddImage()));
+                FloatingActionButton(onPressed: () async {
+                  ImagePicker imagePicker = ImagePicker();
+                  XFile? file =
+                      await imagePicker.pickImage(source: ImageSource.gallery);
+
+                  print('${file?.path}');
+
+                  if (file == null) return;
+
+                  String uniqueFileName =
+                      DateTime.now().microsecondsSinceEpoch.toString();
+
+                  //upload to storage
+                  //get a reference to storage root
+                  Reference referenceRoot = FirebaseStorage.instance.ref();
+                  Reference referenceDirImages = referenceRoot.child('images');
+
+                  //create a reference for the image to be stored..
+                  Reference referenceImageToUpload =
+                      referenceDirImages.child(uniqueFileName);
+
+                  //store the file
+                  await referenceImageToUpload.putFile(File(file.path));
+
+                  //get the url
+                  img = await referenceImageToUpload.getDownloadURL();
+                  print(img);
                 }),
                 const SizedBox(height: 15),
                 ElevatedButton(
                     onPressed: () {
                       setState(() {
                         if (formKey.currentState!.validate()) {}
+                        if (img.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Please upload image')));
+                          return;
+                        }
                       });
 
                       // final age = ageController.text;
@@ -617,31 +652,32 @@ class _UploadScreenState extends State<UploadScreen> {
                       // createUser(age: age);
 
                       final user = User(
-                        name: nameOwnerController.text,
-                        age: int.parse(ageController.text),
-                        bedrooms: int.parse(bedrooms),
-                        bathrooms: int.parse(bathrooms),
-                        area: areaController.text,
-                        carpet: double.parse(carpetAreaController.text),
-                        city: city,
-                        description: descriptionController.text,
-                        email: emailOwnerController.text,
-                        flatno: flatNoController.text,
-                        furnished: furnishedType,
-                        landmark: landmarkController.text,
-                        maintenance: int.parse(maintenanceController.text),
-                        mobile: int.parse(mobileOwnerController.text),
-                        parking: int.parse(parking),
-                        pincode: int.parse(pincodeController.text),
-                        propType: propertyType,
-                        rent: int.parse(monthlyRentController.text),
-                        sqft: double.parse(sqftController.text),
-                        state: state,
-                        country: country,
-                        street: streetController.text,
-                        availableDate:
-                            DateTime.parse(availableDateController.text),
-                      );
+                          name: nameOwnerController.text,
+                          age: int.parse(ageController.text),
+                          bedrooms: int.parse(bedrooms),
+                          bathrooms: int.parse(bathrooms),
+                          area: areaController.text,
+                          carpet: double.parse(carpetAreaController.text),
+                          city: city,
+                          description: descriptionController.text,
+                          email: emailOwnerController.text,
+                          flatno: flatNoController.text,
+                          furnished: furnishedType,
+                          landmark: landmarkController.text,
+                          maintenance: int.parse(maintenanceController.text),
+                          mobile: int.parse(mobileOwnerController.text),
+                          parking: int.parse(parking),
+                          pincode: int.parse(pincodeController.text),
+                          propType: propertyType,
+                          rent: int.parse(monthlyRentController.text),
+                          sqft: double.parse(sqftController.text),
+                          state: state,
+                          country: country,
+                          street: streetController.text,
+                          availableDate:
+                              DateTime.parse(availableDateController.text),
+                          img: img,
+                          isfavorite: false);
                       // final user = User(
                       //     //id: DateTime.now().toString(),
                       //     name: nameOwnerController.text,

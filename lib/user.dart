@@ -25,6 +25,8 @@ class User {
   final int pincode;
   final String landmark;
   final DateTime availableDate;
+  final String img;
+  final bool isfavorite;
 
   User({
     this.id = "",
@@ -50,7 +52,9 @@ class User {
     required this.state,
     required this.street,
     required this.country,
+    required this.img,
     required this.availableDate,
+    required this.isfavorite,
   });
 
   Map<String, dynamic> toJson() => {
@@ -77,7 +81,9 @@ class User {
         'mobile': mobile,
         'rent': rent,
         'date': availableDate,
-        'country': country
+        'country': country,
+        'img': img,
+        'isfavorite': isfavorite,
       };
 
   static User fromJson(Map<String, dynamic> json) => User(
@@ -104,6 +110,8 @@ class User {
         mobile: json['mobile'],
         rent: json['rent'],
         country: json['country'],
+        img: json['img'],
+        isfavorite: json['isfavorite'],
         availableDate: (json['date'] as Timestamp).toDate(),
       );
 }

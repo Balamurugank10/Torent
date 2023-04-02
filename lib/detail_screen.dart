@@ -6,6 +6,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import './owner/add_image.dart';
 
 class DetailScreen extends StatefulWidget {
   static const routeName = '/detail-screen';
@@ -276,23 +277,27 @@ class _DetailScreenState extends State<DetailScreen> {
                               color: Colors.black,
                             ),
                             const SizedBox(height: 10),
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
+                                //mainAxisAlignment: MainAxisAlignment.start,
+                                //crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    'Description',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                  Text(
-                                    '${loadedProducts["description"]}',
-                                    style: const TextStyle(fontSize: 18),
-                                    softWrap: false,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 15,
-                                  ),
+                                  Column(
+                                    children: [
+                                      const Text(
+                                        'Description',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18),
+                                      ),
+                                      Text(
+                                        '${loadedProducts["description"]}',
+                                        style: const TextStyle(fontSize: 18),
+                                        softWrap: false,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 15,
+                                      ),
+                                    ],
+                                  )
                                 ]),
                             const SizedBox(height: 10),
                             const Divider(
@@ -439,8 +444,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                   ],
                                 )),
                             ElevatedButton(
-                                onPressed: () {},
-                                child: const Text('Show on Map')),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => AddImage()));
+                                },
+                                child: const Text('Upload Photos')),
                             const SizedBox(height: 10),
                             const Divider(
                               thickness: 0.5,
@@ -508,7 +516,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                               Text(
                                                 '${loadedProducts["email"]}',
                                                 style: const TextStyle(
-                                                    fontSize: 17),
+                                                    fontSize: 12),
                                               ),
                                               const SizedBox(height: 7),
                                             ])
