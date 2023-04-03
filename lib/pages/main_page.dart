@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../screens/main_screen.dart';
-import '../wastage/welcome_screen.dart';
+import '../wastages/wastage/welcome_screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

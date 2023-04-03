@@ -46,6 +46,21 @@ class _MainDrawerState extends State<MainDrawer> {
         ),
         ListTile(
           leading: const Icon(
+            Icons.insert_emoticon,
+            size: 26,
+          ),
+          title: const Text(
+            'Your Properties',
+            style: TextStyle(
+              fontSize: 19,
+            ),
+          ),
+          onTap: () {
+            signOut();
+          },
+        ),
+        ListTile(
+          leading: const Icon(
             Icons.person_add_alt_rounded,
             size: 26,
           ),

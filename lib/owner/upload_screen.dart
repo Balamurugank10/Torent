@@ -422,19 +422,16 @@ class _UploadScreenState extends State<UploadScreen> {
                   onCountryChanged: (value) {
                     setState(() {
                       country = value;
-                      print(country);
                     });
                   },
                   onStateChanged: (value) {
                     setState(() {
                       state = value.toString();
-                      print(state);
                     });
                   },
                   onCityChanged: (value) {
                     setState(() {
                       city = value.toString();
-                      print(city);
                     });
                   },
                 ),
@@ -592,7 +589,7 @@ class _UploadScreenState extends State<UploadScreen> {
                           ? 'Enter a valid Email'
                           : null,
                   decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.mail),
+                      prefixIcon: const Icon(Icons.mail),
                       label: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: const [
@@ -642,42 +639,41 @@ class _UploadScreenState extends State<UploadScreen> {
                         if (formKey.currentState!.validate()) {}
                         if (img.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Please upload image')));
+                              const SnackBar(
+                                  content: Text('Please upload image')));
                           return;
                         }
                       });
 
-                      // final age = ageController.text;
-
-                      // createUser(age: age);
-
                       final user = User(
-                          name: nameOwnerController.text,
-                          age: int.parse(ageController.text),
-                          bedrooms: int.parse(bedrooms),
-                          bathrooms: int.parse(bathrooms),
-                          area: areaController.text,
-                          carpet: double.parse(carpetAreaController.text),
-                          city: city,
-                          description: descriptionController.text,
-                          email: emailOwnerController.text,
-                          flatno: flatNoController.text,
-                          furnished: furnishedType,
-                          landmark: landmarkController.text,
-                          maintenance: int.parse(maintenanceController.text),
-                          mobile: int.parse(mobileOwnerController.text),
-                          parking: int.parse(parking),
-                          pincode: int.parse(pincodeController.text),
-                          propType: propertyType,
-                          rent: int.parse(monthlyRentController.text),
-                          sqft: double.parse(sqftController.text),
-                          state: state,
-                          country: country,
-                          street: streetController.text,
-                          availableDate:
-                              DateTime.parse(availableDateController.text),
-                          img: img,
-                          isfavorite: false);
+                        name: nameOwnerController.text,
+                        age: int.parse(ageController.text),
+                        bedrooms: int.parse(bedrooms),
+                        bathrooms: int.parse(bathrooms),
+                        area: areaController.text,
+                        carpet: double.parse(carpetAreaController.text),
+                        city: city,
+                        description: descriptionController.text,
+                        email: emailOwnerController.text,
+                        flatno: flatNoController.text,
+                        furnished: furnishedType,
+                        landmark: landmarkController.text,
+                        maintenance: int.parse(maintenanceController.text),
+                        mobile: int.parse(mobileOwnerController.text),
+                        parking: int.parse(parking),
+                        pincode: int.parse(pincodeController.text),
+                        propType: propertyType,
+                        rent: int.parse(monthlyRentController.text),
+                        sqft: double.parse(sqftController.text),
+                        state: state,
+                        country: country,
+                        street: streetController.text,
+                        availableDate:
+                            DateTime.parse(availableDateController.text),
+                        img: img,
+                        isfavorite: false,
+                        // multipleImages: ["img", "img"],
+                      );
                       // final user = User(
                       //     //id: DateTime.now().toString(),
                       //     name: nameOwnerController.text,

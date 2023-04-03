@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:to_rent/authentication/auth_page.dart';
 import 'package:to_rent/detail_screen.dart';
-import './providers/categories.dart';
+import 'wastages/providers/categories.dart';
 import 'package:provider/provider.dart';
 
 Future main() async {

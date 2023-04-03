@@ -76,9 +76,9 @@ class _AState extends State<A> {
                                             vertical: 5, horizontal: 10),
                                         color: Colors.green,
                                         //width: 220,
-                                        child: const Text(
-                                          ' listViewDeatils ',
-                                          style: TextStyle(
+                                        child: Text(
+                                          '${data["type"]}',
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 15,
                                           ),
@@ -134,11 +134,6 @@ class _AState extends State<A> {
                                                     .doc(data["id"])
                                                     .update(
                                                         {'isfavorite': true});
-                                            //                      .toggleFavoriteStatus();
-                                            //                                               void toggleFavoriteStatus() {
-                                            // isFavorite = !isFavorite;
-                                            // notifyListeners();
-                                            // }
                                           },
                                         ),
                                       ),
@@ -303,26 +298,36 @@ class _AState extends State<A> {
                                         ),
                                       ),
                                     ),
-                                    // Positioned(
-                                    //   bottom: 20,
-                                    //   right: 10,
-                                    //   child: Container(
-                                    //     //padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                                    //     color: Colors.black54,
-                                    //     //width: 220,
-                                    //     child: IconButton(
-                                    //       icon: Icon(
-                                    //         product.isFavorite
-                                    //             ? Icons.favorite
-                                    //             : Icons.favorite_border,
-                                    //         color: Colors.white,
-                                    //       ),
-                                    //       onPressed: () {
-                                    //         product.toggleFavoriteStatus();
-                                    //       },
-                                    //     ),
-                                    //   ),
-                                    // )
+                                    Positioned(
+                                      bottom: 20,
+                                      right: 10,
+                                      child: Container(
+                                        //padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                                        color: Colors.black54,
+                                        //width: 220,
+                                        child: IconButton(
+                                          icon: Icon(
+                                            data["isfavorite"]
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                            color: Colors.white,
+                                          ),
+                                          onPressed: () {
+                                            data["isfavorite"]
+                                                ? FirebaseFirestore.instance
+                                                    .collection('users')
+                                                    .doc(data["id"])
+                                                    .update(
+                                                        {'isfavorite': false})
+                                                : FirebaseFirestore.instance
+                                                    .collection('users')
+                                                    .doc(data["id"])
+                                                    .update(
+                                                        {'isfavorite': true});
+                                          },
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
                                 Padding(
@@ -352,7 +357,6 @@ class _AState extends State<A> {
                                           const SizedBox(width: 4),
                                           Text(
                                             "${data['bedrooms']}",
-                                            //'${product.bedRooms}',
                                             style:
                                                 const TextStyle(fontSize: 15),
                                           ),
@@ -368,7 +372,6 @@ class _AState extends State<A> {
                                           const SizedBox(width: 4),
                                           Text(
                                             "${data['bathrooms']}",
-                                            //'${product.bathRooms}',
                                             style:
                                                 const TextStyle(fontSize: 15),
                                           ),
@@ -417,26 +420,6 @@ class _AState extends State<A> {
                       return Container();
                     });
           }),
-
-      // body: StreamBuilder<List<User>>(
-      //   stream: readUsers(),
-      //   builder: (context, snapshot) {
-      //     if (snapshot.hasError) {
-      //       return Text('something  ${snapshot.error}');
-      //     } else if (snapshot.hasData) {
-      //       final users = snapshot.data!;
-
-      //       return ListView(
-
-      //         children: users.map(buildUser).toList(),
-      //       );
-      //     } else {
-      //       return const Center(
-      //         child: CircularProgressIndicator(),
-      //       );
-      //     }
-      //   },
-      // ),
     );
   }
 

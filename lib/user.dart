@@ -27,6 +27,7 @@ class User {
   final DateTime availableDate;
   final String img;
   final bool isfavorite;
+  //final List<String> multipleImages;
 
   User({
     this.id = "",
@@ -55,6 +56,7 @@ class User {
     required this.img,
     required this.availableDate,
     required this.isfavorite,
+    // required this.multipleImages,
   });
 
   Map<String, dynamic> toJson() => {
@@ -84,6 +86,7 @@ class User {
         'country': country,
         'img': img,
         'isfavorite': isfavorite,
+        // 'multipleImages': multipleImages,
       };
 
   static User fromJson(Map<String, dynamic> json) => User(
@@ -112,6 +115,7 @@ class User {
         country: json['country'],
         img: json['img'],
         isfavorite: json['isfavorite'],
+        // multipleImages: json['multipleImages'],
         availableDate: (json['date'] as Timestamp).toDate(),
       );
 }

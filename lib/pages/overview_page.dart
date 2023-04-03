@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/product_list.dart';
+import '../wastages/widgets/product_list.dart';
 
 class OverviewPage extends StatefulWidget {
   const OverviewPage({super.key});

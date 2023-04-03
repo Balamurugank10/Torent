@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_rent/detail_screen.dart';
-import 'package:to_rent/providers/category_outline.dart';
+import 'package:to_rent/wastages/providers/category_outline.dart';
 
 class OverviewItem extends StatefulWidget {
   const OverviewItem({super.key});
