@@ -672,7 +672,7 @@ class _UploadScreenState extends State<UploadScreen> {
                             DateTime.parse(availableDateController.text),
                         img: img,
                         isfavorite: false,
-                        // multipleImages: ["img", "img"],
+                        multipleImages: ["img", "img"],
                       );
                       // final user = User(
                       //     //id: DateTime.now().toString(),
