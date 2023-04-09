@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:to_rent/register_page.dart';
 import 'package:to_rent/screens/login_screen.dart';
 import 'package:to_rent/screens/signup_screen.dart';
 

@@ -4,7 +4,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import './owner/add_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DetailScreen extends StatefulWidget {
   static const routeName = '/detail-screen';
@@ -18,12 +18,14 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   int activeIndex = 0;
 
-  List<String> urlImages = [
-    'https://media.istockphoto.com/id/1442689861/photo/old-fort-house-with-autumnal-trees-and-a-green-field-on-a-sunny-day.jpg?b=1&s=170667a&w=0&k=20&c=uMtOglJx-1QEh7MzG3Z2WaCXOD8bJKi6GEux5rZHe88=',
-    'https://media.istockphoto.com/id/985417344/photo/emerging-residential-area.jpg?s=612x612&w=0&k=20&c=53BK584e1xFwr3ylx_WqQcVp7CbWmsaGxFZ8lqtSgbM=',
-    'https://media.istockphoto.com/id/1442689861/photo/old-fort-house-with-autumnal-trees-and-a-green-field-on-a-sunny-day.jpg?b=1&s=170667a&w=0&k=20&c=uMtOglJx-1QEh7MzG3Z2WaCXOD8bJKi6GEux5rZHe88=',
-    'https://media.istockphoto.com/id/985417344/photo/emerging-residential-area.jpg?s=612x612&w=0&k=20&c=53BK584e1xFwr3ylx_WqQcVp7CbWmsaGxFZ8lqtSgbM=',
-  ];
+  final user = FirebaseAuth.instance.currentUser;
+
+  // List<String> urlImages = [
+  //   'https://media.istockphoto.com/id/1442689861/photo/old-fort-house-with-autumnal-trees-and-a-green-field-on-a-sunny-day.jpg?b=1&s=170667a&w=0&k=20&c=uMtOglJx-1QEh7MzG3Z2WaCXOD8bJKi6GEux5rZHe88=',
+  //   'https://media.istockphoto.com/id/985417344/photo/emerging-residential-area.jpg?s=612x612&w=0&k=20&c=53BK584e1xFwr3ylx_WqQcVp7CbWmsaGxFZ8lqtSgbM=',
+  //   'https://media.istockphoto.com/id/1442689861/photo/old-fort-house-with-autumnal-trees-and-a-green-field-on-a-sunny-day.jpg?b=1&s=170667a&w=0&k=20&c=uMtOglJx-1QEh7MzG3Z2WaCXOD8bJKi6GEux5rZHe88=',
+  //   'https://media.istockphoto.com/id/985417344/photo/emerging-residential-area.jpg?s=612x612&w=0&k=20&c=53BK584e1xFwr3ylx_WqQcVp7CbWmsaGxFZ8lqtSgbM=',
+  // ];
 
   // Stream<DocumentSnapshot<Map<String, dynamic>>> fetchList() async {
   //   const path = 'slide';
@@ -37,12 +39,12 @@ class _DetailScreenState extends State<DetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('dmdjk'),
+        title: const Text(' '),
         actions: [
           IconButton(
               onPressed: () {},
               icon: const Icon(
-                Icons.share_outlined,
+                Icons.notifications,
               )),
         ],
       ),
@@ -66,13 +68,25 @@ class _DetailScreenState extends State<DetailScreen> {
                         child: Column(children: [
                       Stack(children: [
                         CarouselSlider(
-                          options: CarouselOptions(disableCenter: true),
+                          options: CarouselOptions(
+                              // onPageChanged: (index, reason) {
+                              //   setState(() {
+                              //     activeIndex = index;
+                              //   });
+                              // },
+                              viewportFraction: 1,
+                              initialPage: 0,
+                              autoPlayInterval: const Duration(seconds: 4),
+                              height: 270,
+                              enableInfiniteScroll: true,
+                              autoPlay: true),
                           items: loadedProducts["multipleImages"]
                               .map<Widget>((e) => Container(
-                                      child: Image(
-                                    image: NetworkImage(e),
-                                    fit: BoxFit.fill,
-                                  )))
+                                    child: Image(
+                                      image: NetworkImage(e),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ))
                               .toList(),
                           // itemCount: urlImages.length,
                           // itemBuilder: (context, index, realIndex) {
@@ -103,17 +117,17 @@ class _DetailScreenState extends State<DetailScreen> {
                           //   autoPlayInterval: Duration(seconds: 4),
                           // )
                         ),
-                        Positioned(
-                            left: MediaQuery.of(context).size.width / 2.7,
-                            bottom: 10,
-                            child: Center(
-                                child: AnimatedSmoothIndicator(
-                              activeIndex: activeIndex,
-                              count: loadedProducts["multipleImages"].length,
-                              effect: const WormEffect(
-                                activeDotColor: Colors.blue,
-                              ),
-                            )))
+                        // Positioned(
+                        //     left: MediaQuery.of(context).size.width / 2.7,
+                        //     bottom: 10,
+                        //     child: Center(
+                        //         child: AnimatedSmoothIndicator(
+                        //       activeIndex: activeIndex,
+                        //       count: loadedProducts["multipleImages"].length,
+                        //       effect: const WormEffect(
+                        //         activeDotColor: Colors.blue,
+                        //       ),
+                        //     )))
                       ]),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -302,7 +316,6 @@ class _DetailScreenState extends State<DetailScreen> {
                           ),
                           const SizedBox(height: 10),
                           Row(
-                              //mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Column(
@@ -344,7 +357,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                       Icon(Icons.calendar_month_outlined),
                                       SizedBox(width: 10),
                                       Text(
-                                        'Updated on February 23, 2023',
+                                        '  Updated on February 23, 2023',
                                         style: TextStyle(fontSize: 18),
                                       ),
                                     ])
@@ -466,12 +479,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                   const SizedBox(height: 10),
                                 ],
                               )),
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const AddImage()));
-                              },
-                              child: const Text('Upload Photos')),
                           const SizedBox(height: 10),
                           const Divider(
                             thickness: 0.5,
@@ -537,7 +544,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                             ),
                                             const SizedBox(height: 7),
                                             Text(
-                                              '${loadedProducts["email"]}',
+                                              '${user?.email}',
+                                              //'${loadedProducts["email"]}',
                                               style:
                                                   const TextStyle(fontSize: 12),
                                             ),

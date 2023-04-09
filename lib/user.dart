@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class Userdb {
   String id;
   final String name;
   final int age;
@@ -25,11 +25,11 @@ class User {
   final int pincode;
   final String landmark;
   final DateTime availableDate;
-  final String img;
+
   final bool isfavorite;
   final List<String> multipleImages;
 
-  User({
+  Userdb({
     this.id = "",
     required this.name,
     required this.age,
@@ -53,7 +53,6 @@ class User {
     required this.state,
     required this.street,
     required this.country,
-    required this.img,
     required this.availableDate,
     required this.isfavorite,
     required this.multipleImages,
@@ -84,12 +83,11 @@ class User {
         'rent': rent,
         'date': availableDate,
         'country': country,
-        'img': img,
         'isfavorite': isfavorite,
         'multipleImages': multipleImages,
       };
 
-  static User fromJson(Map<String, dynamic> json) => User(
+  static Userdb fromJson(Map<String, dynamic> json) => Userdb(
         id: json['id'],
         name: json['name'],
         age: json['age'],
@@ -113,7 +111,6 @@ class User {
         mobile: json['mobile'],
         rent: json['rent'],
         country: json['country'],
-        img: json['img'],
         isfavorite: json['isfavorite'],
         multipleImages: json['multipleImages'],
         availableDate: (json['date'] as Timestamp).toDate(),

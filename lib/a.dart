@@ -62,7 +62,7 @@ class _AState extends State<A> {
                                         topRight: Radius.circular(15),
                                       ),
                                       child: Image.network(
-                                        'https://media.istockphoto.com/id/483773209/photo/new-cozy-cottage.jpg?s=612x612&w=0&k=20&c=y1rwmoHBg-ZoE7L5WkIWjrTmwXofzqIbozTJyftDu1E=',
+                                        data["multipleImages"][0],
                                         height: 250,
                                         width: double.infinity,
                                         fit: BoxFit.cover,
@@ -234,9 +234,11 @@ class _AState extends State<A> {
                           .startsWith(city.toLowerCase())) {
                         return InkWell(
                           onTap: () {
-                            Navigator.of(context).pushNamed(
-                                DetailScreen.routeName,
-                                arguments: data['id']);
+                            Navigator.of(context)
+                                .pushNamed("detail", arguments: data["id"]);
+                            // Navigator.of(context).pushNamed(
+                            //     DetailScreen.routeName,
+                            //     arguments: data['id']);
                           },
                           child: Card(
                               shape: RoundedRectangleBorder(
@@ -252,7 +254,7 @@ class _AState extends State<A> {
                                         topRight: Radius.circular(15),
                                       ),
                                       child: Image.network(
-                                        'https://media.istockphoto.com/id/483773209/photo/new-cozy-cottage.jpg?s=612x612&w=0&k=20&c=y1rwmoHBg-ZoE7L5WkIWjrTmwXofzqIbozTJyftDu1E=',
+                                        data["multipleImages"][0],
                                         height: 250,
                                         width: double.infinity,
                                         fit: BoxFit.cover,
@@ -423,7 +425,7 @@ class _AState extends State<A> {
     );
   }
 
-  Widget buildUser(User user) => InkWell(
+  Widget buildUser(Userdb user) => InkWell(
       onTap: () {
         Navigator.of(context)
             .pushNamed(DetailScreen.routeName, arguments: user.id);
@@ -583,9 +585,9 @@ class _AState extends State<A> {
   // Widget buildUser(User user) =>
   //    Text('${user.bedrooms.toInt()} ${user.availableDate}');
 
-  Stream<List<User>> readUsers() => FirebaseFirestore.instance
+  Stream<List<Userdb>> readUsers() => FirebaseFirestore.instance
       .collection('users')
       .snapshots()
       .map((snapshot) =>
-          snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
+          snapshot.docs.map((doc) => Userdb.fromJson(doc.data())).toList());
 }

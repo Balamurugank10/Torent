@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../screens/forgot_password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../owner/delete_prop.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({super.key});
@@ -56,7 +57,8 @@ class _MainDrawerState extends State<MainDrawer> {
             ),
           ),
           onTap: () {
-            signOut();
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => DeleteProp()));
           },
         ),
         ListTile(

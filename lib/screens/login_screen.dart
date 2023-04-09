@@ -1,15 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:to_rent/reusable_widgets/my_button.dart';
 import 'package:to_rent/screens/forgot_password.dart';
 import 'package:to_rent/services/auth_services.dart';
 import '../reusable_widgets/reusable_widgets.dart';
 import 'package:email_validator/email_validator.dart';
-
 import '../reusable_widgets/widget_tile.dart';
 import './main_screen.dart';
-//import './signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   final Function()? onTap;
@@ -211,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.01),
 
-                        skipOption(context),
+                        //skipOption(context),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.01),
                       ],
