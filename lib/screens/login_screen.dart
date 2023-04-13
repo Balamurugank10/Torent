@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: TextFormField(
-                            autofillHints: [AutofillHints.email],
+                            autofillHints: const [AutofillHints.email],
                             decoration: InputDecoration(
                                 labelText: "Enter your email",
                                 fillColor: Colors.grey.shade200,

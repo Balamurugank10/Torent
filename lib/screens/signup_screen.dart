@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../reusable_widgets/my_button.dart';
 import '../reusable_widgets/widget_tile.dart';
 import './main_screen.dart';
+import 'package:email_validator/email_validator.dart';
 
 class SignUpScreen extends StatefulWidget {
   final Function()? onTap;
@@ -96,14 +97,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           filled: true,
                           prefixIcon: const Icon(Icons.email_outlined),
                         ),
-                        validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Email";
-                          } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                            return "Please Enter a Valid Email";
-                          }
-                          return null;
-                        },
+                        validator: (value) =>
+                            value != null && !EmailValidator.validate(value)
+                                ? 'Enter a valid Email'
+                                : null,
                         onChanged: (String? value) {
                           _email = value;
                         },

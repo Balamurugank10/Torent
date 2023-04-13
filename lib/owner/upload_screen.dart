@@ -7,7 +7,6 @@ import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:intl/intl.dart';
 import '../user.dart';
 import 'package:csc_picker/csc_picker.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadScreen extends StatefulWidget {
@@ -52,7 +51,6 @@ class _UploadScreenState extends State<UploadScreen> {
   String img = "";
 
   List<String> multipleImages = [];
-  var lenImg = 0;
   final userAuth = FirebaseAuth.instance.currentUser!.email;
 
   @override
@@ -67,11 +65,11 @@ class _UploadScreenState extends State<UploadScreen> {
               children: [
                 Row(
                   children: const [
-                    Text('* ',
+                    Text('*',
                         style: TextStyle(color: Colors.red, fontSize: 24)),
                     Text(
                       'indicates a mandatory field',
-                      style: TextStyle(color: Colors.black, fontSize: 24),
+                      style: TextStyle(color: Colors.black, fontSize: 20),
                     ),
                   ],
                 ),
@@ -100,12 +98,10 @@ class _UploadScreenState extends State<UploadScreen> {
                       });
                     },
                     autoWidth: true,
-                    //wrapAlignment: WrapAlignment.start,
                     enableShape: true,
                     selectedBorderColor: Colors.blue,
                     enableButtonWrap: true,
                     unSelectedBorderColor: Colors.grey,
-                    //width: 100,
                     unSelectedColor: Colors.white,
                     selectedColor: Colors.blue),
                 const SizedBox(height: 15),
@@ -125,14 +121,12 @@ class _UploadScreenState extends State<UploadScreen> {
                       ),
                       floatingLabelStyle: const TextStyle(color: Colors.purple),
                       border: const OutlineInputBorder()),
-                  onChanged: (value) {},
                   onSaved: (newValue) {},
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Age is Required';
                     }
                     return null;
-                    // return value!.isEmpty ? 'Required field' : null;
                   },
                 ),
                 const SizedBox(height: 15),
@@ -140,7 +134,6 @@ class _UploadScreenState extends State<UploadScreen> {
                 const SizedBox(height: 10),
                 CustomRadioButton(
                     buttonLables: const [
-                      '0',
                       '1',
                       '2',
                       '3',
@@ -148,7 +141,6 @@ class _UploadScreenState extends State<UploadScreen> {
                       '5',
                     ],
                     buttonValues: const [
-                      '0',
                       '1',
                       '2',
                       '3',
@@ -164,12 +156,10 @@ class _UploadScreenState extends State<UploadScreen> {
                       });
                     },
                     autoWidth: true,
-                    //wrapAlignment: WrapAlignment.start,
                     enableShape: true,
                     selectedBorderColor: Colors.blue,
                     enableButtonWrap: true,
                     unSelectedBorderColor: Colors.grey,
-                    //width: 100,
                     unSelectedColor: Colors.white,
                     selectedColor: Colors.blue),
                 const SizedBox(height: 15),
@@ -352,18 +342,6 @@ class _UploadScreenState extends State<UploadScreen> {
                   },
                 ),
                 const SizedBox(height: 15),
-                // TextFormField(
-                //   controller: carpetAreaController,
-                //   keyboardType: TextInputType.number,
-                //   decoration: const InputDecoration(
-                //       // suffixText: 'data',
-                //       suffix: Text('Sq. ft.'),
-                //       labelText: 'Carpet Area(Optional)',
-                //       floatingLabelStyle: TextStyle(color: Colors.purple),
-                //       border: OutlineInputBorder()),
-                //   onSaved: (newValue) {},
-                // ),
-                // const SizedBox(height: 15),
                 TextFormField(
                   controller: descriptionController,
                   maxLines: 4,
@@ -566,31 +544,6 @@ class _UploadScreenState extends State<UploadScreen> {
                     //return value!.isEmpty ? 'Required field' : null;
                   },
                 ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: emailOwnerController,
-                  keyboardType: TextInputType.emailAddress,
-                  autofillHints: const [AutofillHints.email],
-                  validator: (value) =>
-                      value != null && !EmailValidator.validate(value)
-                          ? 'Enter a valid Email'
-                          : null,
-                  decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.mail),
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("Email "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                ),
                 const SizedBox(
                   height: 15,
                 ),
@@ -598,126 +551,55 @@ class _UploadScreenState extends State<UploadScreen> {
                     onPressed: () async {
                       List<XFile>? _images = await multiImagePicker();
                       if (_images.isNotEmpty) {
+                        multipleImages = await mip(_images);
                         print('multi images: $multipleImages');
-                        setState(() async {
-                          multipleImages = await mip(_images);
-                          print('multi images: $multipleImages');
-                        });
+                        // setState(() {
+                        //   print('multi images: $multipleImages');
+                        // });
                       }
                     },
                     child: const Text('Upload Images')),
-                // FloatingActionButton(onPressed: () async {
-                //   List<XFile>? _images = await multiImagePicker();
-                //   if (_images.isNotEmpty) {
-                //     multipleImages = await mip(_images);
-                //     print('multi images: $multipleImages');
-                //     setState(() {
-                //       print('multi images: $multipleImages');
-                //     });
-                //   }
-                // }),
-                // FloatingActionButton(onPressed: () async {
-                //   ImagePicker imagePicker = ImagePicker();
-                //   List<XFile>? file = await imagePicker.pickMultiImage();
-                //   print(file![0].path);
-                //   //print('${file?.path}');
-
-                //   if (file == null) return;
-
-                //   String uniqueFileName =
-                //       DateTime.now().microsecondsSinceEpoch.toString();
-
-                //   //upload to storage
-                //   //get a reference to storage root
-                //   Reference referenceRoot = FirebaseStorage.instance.ref();
-                //   Reference referenceDirImages = referenceRoot.child('images');
-
-                //   //create a reference for the image to be stored..
-                //   Reference referenceImageToUpload =
-                //       referenceDirImages.child(uniqueFileName);
-
-                //   //store the file
-                //   // await referenceImageToUpload.putFile(File(file.path));
-
-                //   //get the url
-                //   img = await referenceImageToUpload.getDownloadURL();
-                //   print(img);
-                // }),
                 const SizedBox(height: 15),
-
                 ElevatedButton(
                     onPressed: () {
                       setState(() {
                         if (formKey.currentState!.validate()) {}
-                        if (multipleImages.isEmpty) {
-                          print("Submit button multi-image getting empty");
-                        } else {
-                          print("Multi-image value is present");
-                        }
-                        print('Submit button ${lenImg}');
-                        // lenImg == multipleImages.length
-                        //     ? null
-                        //     : const CircularProgressIndicator();
-                        // if (multipleImages.isEmpty) {
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //       const SnackBar(
-                        //           content: Text('Please upload image')));
-                        //   return;
-                        // }
-                      });
-                      bool isMul = false;
-                      void sub() {
-                        final user = Userdb(
-                          name: nameOwnerController.text,
-                          age: int.parse(ageController.text),
-                          bedrooms: int.parse(bedrooms),
-                          bathrooms: int.parse(bathrooms),
-                          area: areaController.text,
-                          carpet: 78.0,
-                          city: city,
-                          description: descriptionController.text,
-                          email: userAuth.toString(),
-                          flatno: flatNoController.text,
-                          furnished: furnishedType,
-                          landmark: landmarkController.text,
-                          maintenance: int.parse(maintenanceController.text),
-                          mobile: int.parse(mobileOwnerController.text),
-                          parking: int.parse(parking),
-                          pincode: int.parse(pincodeController.text),
-                          propType: propertyType,
-                          rent: int.parse(monthlyRentController.text),
-                          sqft: double.parse(sqftController.text),
-                          state: state,
-                          country: country,
-                          street: streetController.text,
-                          availableDate:
-                              DateTime.parse(availableDateController.text),
-                          isfavorite: false,
-                          multipleImages: multipleImages,
-                        );
-
-                        createUser(user);
-                        print('djkd $multipleImages');
-                      }
-
-                      int i = 0;
-                      setState(() {
-                        while (i >= 0) {
-                          print('length image :${lenImg}');
-                          print('mmmm length image :${multipleImages.length}');
-                          if (lenImg == 0 || lenImg == multipleImages.length) {
-                            print("success");
-                            sub();
-                            i = -1;
-                          } else {
-                            print("else part");
-                            const CircularProgressIndicator();
-                            i++;
-                          }
-                          print('while loop count:${i}');
+                        if (multipleImages == []) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Please upload image')));
+                          return;
                         }
                       });
 
+                      final user = Userdb(
+                        name: nameOwnerController.text,
+                        age: int.parse(ageController.text),
+                        bedrooms: int.parse(bedrooms),
+                        bathrooms: int.parse(bathrooms),
+                        area: areaController.text,
+                        carpet: 78.0,
+                        city: city,
+                        description: descriptionController.text,
+                        email: userAuth.toString(),
+                        flatno: flatNoController.text,
+                        furnished: furnishedType,
+                        landmark: landmarkController.text,
+                        maintenance: int.parse(maintenanceController.text),
+                        mobile: int.parse(mobileOwnerController.text),
+                        parking: int.parse(parking),
+                        pincode: int.parse(pincodeController.text),
+                        propType: propertyType,
+                        rent: int.parse(monthlyRentController.text),
+                        sqft: double.parse(sqftController.text),
+                        state: state,
+                        country: country,
+                        street: streetController.text,
+                        availableDate:
+                            DateTime.parse(availableDateController.text),
+                        isfavorite: false,
+                        multipleImages: multipleImages,
+                      );
                       // final user = User(
                       //     //id: DateTime.now().toString(),
                       //     name: nameOwnerController.text,
@@ -725,6 +607,9 @@ class _UploadScreenState extends State<UploadScreen> {
                       //     availableDate: DateTime(2019, 10, 12)
                       //     //availableDate: DateTime(availableDateController.toString())
                       //     );
+
+                      createUser(user);
+                      print('djkd $multipleImages');
 
                       //Navigator.pop(context);
                     },
@@ -741,9 +626,7 @@ class _UploadScreenState extends State<UploadScreen> {
 
     print("Store image path");
     for (XFile i in list) {
-      final val = await uploadImage(i);
-      print(val.isEmpty);
-      _path.add(val);
+      _path.add(await uploadImage(i));
       //break;
       //_dum.add("Image1");
     }
@@ -756,8 +639,7 @@ class _UploadScreenState extends State<UploadScreen> {
     List<XFile>? _images = await ImagePicker().pickMultiImage();
     if (_images != null && _images.isNotEmpty) {
       print("Multi image is not empty condition");
-      lenImg = _images.length;
-      print('lenImg ${_images.length}');
+      print(_images);
       return _images;
     }
     return [];
@@ -765,7 +647,7 @@ class _UploadScreenState extends State<UploadScreen> {
 
   Future<String> uploadImage(XFile image) async {
     Reference db =
-        await FirebaseStorage.instance.ref("images/${getImageName(image)}");
+        FirebaseStorage.instance.ref("images/${getImageName(image)}");
     await db.putFile(File(image.path));
     final _downloadedFile = await db.getDownloadURL();
     print("Downloaded FB path:" + _downloadedFile);

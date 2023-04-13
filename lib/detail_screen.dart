@@ -20,18 +20,6 @@ class _DetailScreenState extends State<DetailScreen> {
 
   final user = FirebaseAuth.instance.currentUser;
 
-  // List<String> urlImages = [
-  //   'https://media.istockphoto.com/id/1442689861/photo/old-fort-house-with-autumnal-trees-and-a-green-field-on-a-sunny-day.jpg?b=1&s=170667a&w=0&k=20&c=uMtOglJx-1QEh7MzG3Z2WaCXOD8bJKi6GEux5rZHe88=',
-  //   'https://media.istockphoto.com/id/985417344/photo/emerging-residential-area.jpg?s=612x612&w=0&k=20&c=53BK584e1xFwr3ylx_WqQcVp7CbWmsaGxFZ8lqtSgbM=',
-  //   'https://media.istockphoto.com/id/1442689861/photo/old-fort-house-with-autumnal-trees-and-a-green-field-on-a-sunny-day.jpg?b=1&s=170667a&w=0&k=20&c=uMtOglJx-1QEh7MzG3Z2WaCXOD8bJKi6GEux5rZHe88=',
-  //   'https://media.istockphoto.com/id/985417344/photo/emerging-residential-area.jpg?s=612x612&w=0&k=20&c=53BK584e1xFwr3ylx_WqQcVp7CbWmsaGxFZ8lqtSgbM=',
-  // ];
-
-  // Stream<DocumentSnapshot<Map<String, dynamic>>> fetchList() async {
-  //   const path = 'slide';
-  //   return await Fire
-  // }
-
   @override
   Widget build(BuildContext context) {
     final productId = ModalRoute.of(context)!.settings.arguments
@@ -88,46 +76,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                     ),
                                   ))
                               .toList(),
-                          // itemCount: urlImages.length,
-                          // itemBuilder: (context, index, realIndex) {
-                          //   // final urlImage = urlImages[index];
-
-                          //   return Container(
-                          //       width: double.infinity,
-                          //       color: Colors.grey,
-                          //       child: Image(
-                          //           image: NetworkImage(urlImages[index]),
-                          //           fit: BoxFit.cover));
-                          // },
-                          // options: CarouselOptions(
-                          //   initialPage: 0,
-                          //   height: 270,
-                          //   pauseAutoPlayOnTouch: true,
-                          //   viewportFraction:
-                          //       1, //at a time image to be displayed
-                          //   autoPlay: true,
-                          //   onPageChanged: (index, reason) {
-                          //     setState(() {
-                          //       activeIndex = index;
-                          //       print('Index val1: ${index}');
-                          //       print('active val1: ${activeIndex}');
-                          //     });
-                          //   },
-                          //   //enableInfiniteScroll: true,
-                          //   autoPlayInterval: Duration(seconds: 4),
-                          // )
                         ),
-                        // Positioned(
-                        //     left: MediaQuery.of(context).size.width / 2.7,
-                        //     bottom: 10,
-                        //     child: Center(
-                        //         child: AnimatedSmoothIndicator(
-                        //       activeIndex: activeIndex,
-                        //       count: loadedProducts["multipleImages"].length,
-                        //       effect: const WormEffect(
-                        //         activeDotColor: Colors.blue,
-                        //       ),
-                        //     )))
                       ]),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -135,10 +84,6 @@ class _DetailScreenState extends State<DetailScreen> {
                         child: Column(children: [
                           Row(
                             children: [
-                              // Center(
-                              //   child: Text(
-                              //       '${List.from(loadedProducts["multipleImages"]).map((e) => "MultiOImage" + e)}'),
-                              // ),
                               Text(
                                 '₹${loadedProducts["rent"]}',
                                 style: const TextStyle(

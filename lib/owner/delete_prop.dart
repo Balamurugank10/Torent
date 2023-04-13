@@ -16,12 +16,12 @@ class _DeletePropState extends State<DeleteProp> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Your Properties'),
+          title: const Text('Your Properties'),
           actions: [
             IconButton(
                 onPressed: () {},
                 icon: const Icon(
-                  Icons.delete,
+                  Icons.notifications,
                 )),
           ],
         ),
@@ -113,8 +113,9 @@ class _DeletePropState extends State<DeleteProp> {
                                       color: Colors.black54,
                                       //width: 220,
                                       child: IconButton(
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.delete,
+                                          color: Colors.white,
                                         ),
                                         onPressed: () {
                                           FirebaseFirestore.instance

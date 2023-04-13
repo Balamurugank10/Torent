@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import '../screens/forgot_password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../owner/delete_prop.dart';
+import './terms.dart';
+import '../about.dart';
+import '../contact.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({super.key});
 
   @override
   State<MainDrawer> createState() => _MainDrawerState();
+  
 }
 
 class _MainDrawerState extends State<MainDrawer> {
@@ -29,9 +33,7 @@ class _MainDrawerState extends State<MainDrawer> {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             CircleAvatar(
               radius: 52,
-              backgroundImage: NetworkImage('$userDp'
-                  // 'https://track2traininginstitute.files.wordpress.com/2021/07/apj.jpg'
-                  ),
+              backgroundImage: NetworkImage('$userDp'),
             ),
             const SizedBox(height: 20),
             Text(
@@ -40,14 +42,14 @@ class _MainDrawerState extends State<MainDrawer> {
             ),
             Text(
               '$userEmail',
-              style: const TextStyle(color: Colors.white, fontSize: 20),
+              style: const TextStyle(color: Colors.white, fontSize: 17),
             ),
             const SizedBox(height: 20),
           ]),
         ),
         ListTile(
           leading: const Icon(
-            Icons.insert_emoticon,
+            Icons.apartment_outlined,
             size: 26,
           ),
           title: const Text(
@@ -57,8 +59,8 @@ class _MainDrawerState extends State<MainDrawer> {
             ),
           ),
           onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => DeleteProp()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const DeleteProp()));
           },
         ),
         ListTile(
@@ -140,7 +142,10 @@ class _MainDrawerState extends State<MainDrawer> {
               fontSize: 19,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Terms()));
+          },
         ),
         ListTile(
           leading: const Icon(
@@ -153,7 +158,10 @@ class _MainDrawerState extends State<MainDrawer> {
               fontSize: 19,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Contact()));
+          },
         ),
         ListTile(
           leading: const Icon(
@@ -166,7 +174,10 @@ class _MainDrawerState extends State<MainDrawer> {
               fontSize: 19,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const About()));
+          },
         ),
         const Divider(
           height: 5,

@@ -46,7 +46,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     topRight: Radius.circular(15),
                                   ),
                                   child: Image.network(
-                                    'https://media.istockphoto.com/id/483773209/photo/new-cozy-cottage.jpg?s=612x612&w=0&k=20&c=y1rwmoHBg-ZoE7L5WkIWjrTmwXofzqIbozTJyftDu1E=',
+                                    data["multipleImages"][0],
                                     height: 250,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
@@ -60,9 +60,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                         vertical: 5, horizontal: 10),
                                     color: Colors.green,
                                     //width: 220,
-                                    child: const Text(
-                                      ' listViewDeatils ',
-                                      style: TextStyle(
+                                    child: Text(
+                                      "₹${data['type']}",
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
                                       ),
@@ -116,11 +116,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                 .collection('users')
                                                 .doc(data["id"])
                                                 .update({'isfavorite': true});
-                                        //                      .toggleFavoriteStatus();
-                                        //                                               void toggleFavoriteStatus() {
-                                        // isFavorite = !isFavorite;
-                                        // notifyListeners();
-                                        // }
                                       },
                                     ),
                                   ),

@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../pages/favorite_page.dart';
-import '../owner/post_screen.dart';
+//import '../owner/post_screen.dart';
 import '../owner/upload_screen.dart';
-import '../pages/overview_page.dart';
-import '../pages/profile_page.dart';
+//import '../pages/overview_page.dart';
+//import '../pages/profile_page.dart';
 import '../drawer/main_drawer.dart';
 import '../a.dart';
 
@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
     const A(),
     const FavoriteScreen(),
     const UploadScreen(),
-    const A(),
+    //const A(),
   ];
 
   final user = FirebaseAuth.instance.currentUser;
@@ -34,11 +34,10 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("ToRent"),
+        title: const Text("To-Rent"),
         centerTitle: true,
         actions: [
-          IconButton(
-              onPressed: () {}, icon: const Icon(Icons.notifications_none))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
         ],
       ),
       drawer: const MainDrawer(),
@@ -59,10 +58,10 @@ class _MainScreenState extends State<MainScreen> {
               backgroundColor: Theme.of(context).primaryColor,
               icon: const Icon(Icons.favorite_border_outlined),
               label: 'Favorite'),
-          BottomNavigationBarItem(
-              icon: const Icon(Icons.post_add_rounded), label: user?.email),
           const BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline_sharp), label: 'Profile'),
+              icon: Icon(Icons.post_add_rounded), label: 'Post'),
+          // const BottomNavigationBarItem(
+          //     icon: Icon(Icons.person_outline_sharp), label: 'Profile'),
         ],
       ),
     );
