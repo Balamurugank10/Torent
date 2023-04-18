@@ -45,8 +45,6 @@ class Terms extends StatelessWidget {
                 explanationTerms(
                     'Contact details is the most necessary part for publish your property. You should give original information in this section.'),
                 sizedHeight(),
-                headingTerms('Cookies'),
-                explanationTerms('hhhhhhhhhhhhhhhhhhh')
               ],
             )),
       ),

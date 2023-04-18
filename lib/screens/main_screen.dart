@@ -33,13 +33,16 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("To-Rent"),
-        centerTitle: true,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
-        ],
-      ),
+      appBar: index == 0
+          ? null
+          : AppBar(
+              title: const Text("To-Rent"),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                    onPressed: () {}, icon: const Icon(Icons.notifications))
+              ],
+            ),
       drawer: const MainDrawer(),
       body: screens[index],
       bottomNavigationBar: BottomNavigationBar(
@@ -60,8 +63,6 @@ class _MainScreenState extends State<MainScreen> {
               label: 'Favorite'),
           const BottomNavigationBarItem(
               icon: Icon(Icons.post_add_rounded), label: 'Post'),
-          // const BottomNavigationBarItem(
-          //     icon: Icon(Icons.person_outline_sharp), label: 'Profile'),
         ],
       ),
     );

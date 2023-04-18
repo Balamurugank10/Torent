@@ -59,7 +59,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 10),
                                     color: Colors.green,
-                                    //width: 220,
                                     child: Text(
                                       "₹${data['type']}",
                                       style: const TextStyle(
@@ -78,11 +77,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 20),
                                     color: Colors.black54,
-                                    //width: 220,
                                     child: Text(
                                       "₹${data['rent']}",
-                                      // data['rent'],
-                                      //  '₹${product.amount}',
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 26,
@@ -96,9 +92,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   bottom: 20,
                                   right: 10,
                                   child: Container(
-                                    //padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                                     color: Colors.black54,
-                                    //width: 220,
                                     child: IconButton(
                                       icon: Icon(
                                         data["isfavorite"]
@@ -128,8 +122,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               child: Row(children: [
                                 Text(
                                   "${data['area']} , ${data['city']}",
-
-                                  //product.city,
                                   style: const TextStyle(
                                       fontSize: 24, color: Colors.black38),
                                 )
@@ -149,7 +141,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       const SizedBox(width: 4),
                                       Text(
                                         "${data['bedrooms']}",
-                                        //'${product.bedRooms}',
                                         style: const TextStyle(fontSize: 15),
                                       ),
                                       const SizedBox(width: 12),
@@ -164,7 +155,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       const SizedBox(width: 4),
                                       Text(
                                         "${data['bathrooms']}",
-                                        //'${product.bathRooms}',
                                         style: const TextStyle(fontSize: 15),
                                       ),
                                       const SizedBox(width: 12),
@@ -179,7 +169,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       const SizedBox(width: 4),
                                       Text(
                                         "${data['parking']}",
-                                        //'${product.garage}',
                                         style: const TextStyle(fontSize: 15),
                                       ),
                                       const SizedBox(width: 12),
@@ -194,7 +183,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       const SizedBox(width: 4),
                                       Text(
                                         "${data['sqft']}",
-                                        //'${product.sqft}',
                                         style: const TextStyle(fontSize: 15),
                                       ),
                                       const SizedBox(width: 12),
@@ -205,10 +193,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             ),
                           ])),
                     );
-
-                    // return Center(
-                    //   child: Text('no favorites yet'),
-                    // );
                   });
         });
   }

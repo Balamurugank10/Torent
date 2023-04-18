@@ -4,10 +4,12 @@ import 'package:to_rent/authentication/auth_page.dart';
 import 'package:to_rent/detail_screen.dart';
 import 'wastages/providers/categories.dart';
 import 'package:provider/provider.dart';
+import './notification_services.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  NotificationService().initNotification();
   runApp(const MyApp());
 }
 

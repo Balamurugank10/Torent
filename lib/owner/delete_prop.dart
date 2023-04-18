@@ -94,8 +94,6 @@ class _DeletePropState extends State<DeleteProp> {
                                       //width: 220,
                                       child: Text(
                                         "₹${data['rent']}",
-                                        // data['rent'],
-                                        //  '₹${product.amount}',
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 26,
@@ -109,9 +107,7 @@ class _DeletePropState extends State<DeleteProp> {
                                     top: 20,
                                     right: 10,
                                     child: Container(
-                                      //padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                                       color: Colors.black54,
-                                      //width: 220,
                                       child: IconButton(
                                         icon: const Icon(
                                           Icons.delete,
@@ -126,34 +122,6 @@ class _DeletePropState extends State<DeleteProp> {
                                       ),
                                     ),
                                   ),
-                                  Positioned(
-                                    bottom: 20,
-                                    right: 10,
-                                    child: Container(
-                                      //padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                                      color: Colors.black54,
-                                      //width: 220,
-                                      child: IconButton(
-                                        icon: Icon(
-                                          data["isfavorite"]
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: Colors.white,
-                                        ),
-                                        onPressed: () {
-                                          data["isfavorite"]
-                                              ? FirebaseFirestore.instance
-                                                  .collection('users')
-                                                  .doc(data["id"])
-                                                  .update({'isfavorite': false})
-                                              : FirebaseFirestore.instance
-                                                  .collection('users')
-                                                  .doc(data["id"])
-                                                  .update({'isfavorite': true});
-                                        },
-                                      ),
-                                    ),
-                                  )
                                 ],
                               ),
                               Padding(
@@ -162,8 +130,6 @@ class _DeletePropState extends State<DeleteProp> {
                                 child: Row(children: [
                                   Text(
                                     "${data['area']} , ${data['city']}",
-
-                                    //product.city,
                                     style: const TextStyle(
                                         fontSize: 24, color: Colors.black38),
                                   )
@@ -183,7 +149,6 @@ class _DeletePropState extends State<DeleteProp> {
                                         const SizedBox(width: 4),
                                         Text(
                                           "${data['bedrooms']}",
-                                          //'${product.bedRooms}',
                                           style: const TextStyle(fontSize: 15),
                                         ),
                                         const SizedBox(width: 12),
@@ -198,7 +163,6 @@ class _DeletePropState extends State<DeleteProp> {
                                         const SizedBox(width: 4),
                                         Text(
                                           "${data['bathrooms']}",
-                                          //'${product.bathRooms}',
                                           style: const TextStyle(fontSize: 15),
                                         ),
                                         const SizedBox(width: 12),
@@ -213,7 +177,6 @@ class _DeletePropState extends State<DeleteProp> {
                                         const SizedBox(width: 4),
                                         Text(
                                           "${data['parking']}",
-                                          //'${product.garage}',
                                           style: const TextStyle(fontSize: 15),
                                         ),
                                         const SizedBox(width: 12),
@@ -228,7 +191,6 @@ class _DeletePropState extends State<DeleteProp> {
                                         const SizedBox(width: 4),
                                         Text(
                                           "${data['sqft']}",
-                                          //'${product.sqft}',
                                           style: const TextStyle(fontSize: 15),
                                         ),
                                         const SizedBox(width: 12),

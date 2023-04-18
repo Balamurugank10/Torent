@@ -4,7 +4,6 @@ import '../reusable_widgets/reusable_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../reusable_widgets/my_button.dart';
 import '../reusable_widgets/widget_tile.dart';
-import './main_screen.dart';
 import 'package:email_validator/email_validator.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -23,6 +22,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscureText = true;
 
   void signUpUser() async {
+    // setState(() {
+    //   if (_formKey.currentState!.validate()) {}
+    // });
+
     //show loading circle
     showDialog(
         context: context,
@@ -43,6 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       // POP THE LOADING CIRCLE
 
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       // POP THE LOADING CIRCLE
@@ -67,19 +71,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
-      key: _scaffoldKey,
+      key: scaffoldKey,
       backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Center(
             child: SingleChildScrollView(
           child: Form(
-            key: formKey,
+            key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 logoWidget("assets/images/logo.png"),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 Text('Let\'s create an account!',
                     style: TextStyle(
                       color: Colors.grey[700],
@@ -167,7 +172,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             prefixIcon: const Icon(Icons.lock_outline)),
                         validator: (String? value) {
                           if (value!.isEmpty) {
-                            return "Please enter your password";
+                            return "Please confirm your password";
+                          }
+                          if (value.toString() == _password.toString()) {
+                            return "Password does not match";
                           }
                           return null;
                         },
@@ -179,10 +187,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                       ),
                     ),
-
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     MyButton(onTap: signUpUser, title: 'SIGN UP'),
-
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -213,7 +219,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       imagePath2: 'assets/images/oogle.png',
                       onTap: (() => AuthServices().signInWithGoogle()),
                     ),
-                    //GmailLogin(),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -225,10 +230,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(width: 4),
                         GestureDetector(
                           onTap: widget.onTap,
-                          //onTap: () {
-                          //Navigator.push(
-                          //    context, MaterialPageRoute(builder: (context) => LoginScreen()));
-                          //},
                           child: const Text(
                             "Log in",
                             style: TextStyle(
@@ -238,9 +239,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ],
                     ),
-                    // LoginOption(context),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                    skipOption(context),
                   ],
                 ),
               ],
@@ -250,18 +249,4 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-}
-
-Widget skipOption(context) {
-  return GestureDetector(
-    onTap: () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const MainScreen()));
-    },
-    child: const Text(
-      "Ask me Later",
-      style: TextStyle(
-          color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 20),
-    ),
-  );
 }

@@ -23,6 +23,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   //sign user in method
   void signInUser() async {
+    setState(() {
+      if (formKey.currentState!.validate()) {}
+    });
+
     //show loading circle
     showDialog(
         context: context,
@@ -43,8 +47,13 @@ class _LoginScreenState extends State<LoginScreen> {
     } on FirebaseAuthException catch (e) {
       // POP THE LOADING CIRCLE
       Navigator.pop(context);
-
-      showErrorMessage(e.code);
+      if (e.code == "wrong-password") {
+        showErrorMessage(e.code);
+      }
+      if (e.code == "invalid-email") {
+        showErrorMessage(e.code);
+      }
+      // showErrorMessage(e.code);
     }
   }
 
@@ -76,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     logoWidget("assets/images/logo.png"),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Text('Welcome back you\'ve been missed!',
                         style: TextStyle(
                           color: Colors.grey[700],
@@ -205,10 +215,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
 
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-
-                        //skipOption(context),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.01),
                       ],

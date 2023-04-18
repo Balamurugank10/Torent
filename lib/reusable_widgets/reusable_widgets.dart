@@ -6,7 +6,7 @@ Image logoWidget(String ImageName) {
     ImageName,
     fit: BoxFit.cover,
     width: 140,
-    height: 140,
+    height: 100,
   );
 }
 
@@ -31,7 +31,6 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
         color: Colors.black.withOpacity(0.9),
       ),
       filled: true,
-      //floatingLabelBehavior: FloatingLabelBehavior.never,
       fillColor: Colors.white.withOpacity(0.3),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(30),
@@ -40,35 +39,3 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     ),
   );
 }
-
-
-// Container FirebaseButton(BuildContext context, String title, Function onTap) {
-//   return Container(
-//     width: MediaQuery.of(context).size.width,
-//     height: 50,
-//     decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
-//     child: ElevatedButton(
-//       onPressed: () {
-//         onTap;
-//       },
-//       style: ButtonStyle(
-//           backgroundColor: MaterialStateProperty.resolveWith((states) {
-//             if (states.contains(MaterialState.pressed)) {
-//               return Colors.white;
-//             }
-//             return const Color(0x61a82f2f);
-//           }),
-//           shape: MaterialStateProperty.all(RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(30),
-//           ))),
-//       child: Text(
-//         title,
-//         style: const TextStyle(
-//           color: Colors.white,
-//           fontWeight: FontWeight.bold,
-//           fontSize: 16,
-//         ),
-//       ),
-//     ),
-//   );
-// }

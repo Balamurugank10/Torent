@@ -5,9 +5,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:intl/intl.dart';
+import '../notification_services.dart';
+import '../a.dart';
 import '../user.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});
@@ -17,6 +20,7 @@ class UploadScreen extends StatefulWidget {
 }
 
 class _UploadScreenState extends State<UploadScreen> {
+  List<String> mobiles = ['8015677832', '8825772826'];
   GlobalKey<FormState> formKey = GlobalKey();
 
   final ageController = TextEditingController();
@@ -52,6 +56,15 @@ class _UploadScreenState extends State<UploadScreen> {
 
   List<String> multipleImages = [];
   final userAuth = FirebaseAuth.instance.currentUser!.email;
+
+  void sending_SMS(String msg, List<String> list_receipents) async {
+    String send_result =
+        await sendSMS(message: msg, recipients: list_receipents)
+            .catchError((err) {
+      print(err);
+    });
+    print(send_result);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -177,12 +190,10 @@ class _UploadScreenState extends State<UploadScreen> {
                       });
                     },
                     autoWidth: true,
-                    //wrapAlignment: WrapAlignment.start,
                     enableShape: true,
                     selectedBorderColor: Colors.blue,
                     enableButtonWrap: true,
                     unSelectedBorderColor: Colors.grey,
-                    //width: 100,
                     unSelectedColor: Colors.white,
                     selectedColor: Colors.blue),
                 const SizedBox(height: 15),
@@ -208,12 +219,10 @@ class _UploadScreenState extends State<UploadScreen> {
                       });
                     },
                     autoWidth: true,
-                    //wrapAlignment: WrapAlignment.start,
                     enableShape: true,
                     selectedBorderColor: Colors.blue,
                     enableButtonWrap: true,
                     unSelectedBorderColor: Colors.grey,
-                    //width: 100,
                     unSelectedColor: Colors.white,
                     selectedColor: Colors.blue),
                 const SizedBox(height: 15),
@@ -231,12 +240,10 @@ class _UploadScreenState extends State<UploadScreen> {
                       });
                     },
                     autoWidth: true,
-                    //wrapAlignment: WrapAlignment.start,
                     enableShape: true,
                     selectedBorderColor: Colors.blue,
                     enableButtonWrap: true,
                     unSelectedBorderColor: Colors.grey,
-                    //width: 100,
                     unSelectedColor: Colors.white,
                     selectedColor: Colors.blue),
                 const SizedBox(height: 15),
@@ -257,7 +264,6 @@ class _UploadScreenState extends State<UploadScreen> {
 
                       setState(() {
                         availableDateController.text = formattedDate.toString();
-                        //print(formattedDate);
                       });
                     }
                   },
@@ -274,7 +280,6 @@ class _UploadScreenState extends State<UploadScreen> {
                       ],
                     ),
                     floatingLabelStyle: const TextStyle(color: Colors.purple),
-                    //border: const OutlineInputBorder()
                   ),
                   onSaved: (newValue) {},
                   validator: (value) {
@@ -356,9 +361,6 @@ class _UploadScreenState extends State<UploadScreen> {
                       border: OutlineInputBorder()),
                   onSaved: (newValue) {},
                   validator: (value) {
-                    // if (value!.length < 100) {
-                    //   return 'Length contains atleast 100 characters';
-                    // }
                     return value!.isEmpty ? 'Required field' : null;
                   },
                 ),
@@ -468,7 +470,7 @@ class _UploadScreenState extends State<UploadScreen> {
                     if (value!.length != 6) {
                       return 'Pincode must be 6 digits';
                     }
-                    //return value!.length != 6 ? 'Required field' : null;
+                    return null;
                   },
                 ),
                 const SizedBox(height: 15),
@@ -541,7 +543,7 @@ class _UploadScreenState extends State<UploadScreen> {
                     if (value!.length != 10) {
                       return 'Mobile number contain 10 digits';
                     }
-                    //return value!.isEmpty ? 'Required field' : null;
+                    return null;
                   },
                 ),
                 const SizedBox(
@@ -549,13 +551,10 @@ class _UploadScreenState extends State<UploadScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () async {
-                      List<XFile>? _images = await multiImagePicker();
-                      if (_images.isNotEmpty) {
-                        multipleImages = await mip(_images);
+                      List<XFile>? images = await multiImagePicker();
+                      if (images.isNotEmpty) {
+                        multipleImages = await mip(images);
                         print('multi images: $multipleImages');
-                        // setState(() {
-                        //   print('multi images: $multipleImages');
-                        // });
                       }
                     },
                     child: const Text('Upload Images')),
@@ -570,6 +569,7 @@ class _UploadScreenState extends State<UploadScreen> {
                                   content: Text('Please upload image')));
                           return;
                         }
+                        mobiles.add(mobileOwnerController.text.toString());
                       });
 
                       final user = Userdb(
@@ -600,18 +600,19 @@ class _UploadScreenState extends State<UploadScreen> {
                         isfavorite: false,
                         multipleImages: multipleImages,
                       );
-                      // final user = User(
-                      //     //id: DateTime.now().toString(),
-                      //     name: nameOwnerController.text,
-                      //     age: int.parse(ageController.text),
-                      //     availableDate: DateTime(2019, 10, 12)
-                      //     //availableDate: DateTime(availableDateController.toString())
-                      //     );
 
-                      createUser(user);
+                      createUser(user)
+                          .then((value) => NotificationService().showNotification(
+                              title: 'TORENT',
+                              body:
+                                  'Hai ${nameOwnerController.text}... \n \n Your Property Will Posted Successfully'))
+                          .then((value) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => const A()));
+                      });
                       print('djkd $multipleImages');
 
-                      //Navigator.pop(context);
+                      // Navigator.pop(context);
                     },
                     child: const Text('Submit')),
                 const SizedBox(height: 15),
@@ -622,25 +623,23 @@ class _UploadScreenState extends State<UploadScreen> {
   }
 
   Future<List<String>> mip(List<XFile> list) async {
-    List<String> _path = [];
+    List<String> path = [];
 
     print("Store image path");
     for (XFile i in list) {
-      _path.add(await uploadImage(i));
-      //break;
-      //_dum.add("Image1");
+      path.add(await uploadImage(i));
     }
 
-    return _path;
+    return path;
   }
 
   Future<List<XFile>> multiImagePicker() async {
     print("Inside the MultiImage picker");
-    List<XFile>? _images = await ImagePicker().pickMultiImage();
-    if (_images != null && _images.isNotEmpty) {
+    List<XFile>? images = await ImagePicker().pickMultiImage();
+    if (images.isNotEmpty) {
       print("Multi image is not empty condition");
-      print(_images);
-      return _images;
+      print(images);
+      return images;
     }
     return [];
   }
@@ -649,9 +648,9 @@ class _UploadScreenState extends State<UploadScreen> {
     Reference db =
         FirebaseStorage.instance.ref("images/${getImageName(image)}");
     await db.putFile(File(image.path));
-    final _downloadedFile = await db.getDownloadURL();
-    print("Downloaded FB path:" + _downloadedFile);
-    return _downloadedFile;
+    final downloadedFile = await db.getDownloadURL();
+    print("Downloaded FB path:" + downloadedFile);
+    return downloadedFile;
   }
 
   //Return image name
@@ -663,16 +662,7 @@ class _UploadScreenState extends State<UploadScreen> {
     //Reference to a document...
     final docUser = FirebaseFirestore.instance.collection('users').doc();
     user.id = docUser.id;
-    // final json = {
-    //   'name': 'bala',
-    //   'age': age,
-    // };
 
-    // final user = User(
-    //     id: docUser.id,
-    //     name: 'bala',
-    //     age: 2,
-    //     availableDate: DateTime(2019, 10, 12));
     final json = user.toJson();
 
     // Create document in cloud firestore and write data to firebase...

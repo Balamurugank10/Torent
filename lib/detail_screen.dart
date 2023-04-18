@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -57,11 +57,6 @@ class _DetailScreenState extends State<DetailScreen> {
                       Stack(children: [
                         CarouselSlider(
                           options: CarouselOptions(
-                              // onPageChanged: (index, reason) {
-                              //   setState(() {
-                              //     activeIndex = index;
-                              //   });
-                              // },
                               viewportFraction: 1,
                               initialPage: 0,
                               autoPlayInterval: const Duration(seconds: 4),
@@ -69,11 +64,9 @@ class _DetailScreenState extends State<DetailScreen> {
                               enableInfiniteScroll: true,
                               autoPlay: true),
                           items: loadedProducts["multipleImages"]
-                              .map<Widget>((e) => Container(
-                                    child: Image(
-                                      image: NetworkImage(e),
-                                      fit: BoxFit.fill,
-                                    ),
+                              .map<Widget>((e) => Image(
+                                    image: NetworkImage(e),
+                                    fit: BoxFit.fill,
                                   ))
                               .toList(),
                         ),
@@ -490,7 +483,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                             const SizedBox(height: 7),
                                             Text(
                                               '${user?.email}',
-                                              //'${loadedProducts["email"]}',
                                               style:
                                                   const TextStyle(fontSize: 12),
                                             ),

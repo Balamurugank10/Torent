@@ -32,10 +32,6 @@ class WidgetTile extends StatelessWidget {
                 imagePath2,
                 height: 40,
               ),
-              // const Text(
-              //   'oogle',
-              //   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-              // )
             ],
           )),
     );

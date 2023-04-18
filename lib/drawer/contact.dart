@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './reusable_widgets/reusable_widgets.dart';
+import '../reusable_widgets/reusable_widgets.dart';
 
 class Contact extends StatelessWidget {
   const Contact({super.key});
@@ -29,21 +29,6 @@ class Contact extends StatelessWidget {
                   color: Colors.yellow,
                 ),
               ),
-              // SizedBox(height: 12),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Icon(
-              //       Icons.facebook,
-              //       color: Colors.white,
-              //       size: 44,
-              //     ),
-              //     Icon(
-              //       Icons.ac_unit,
-              //       color: Colors.white,
-              //     ),
-              //   ],
-              // ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.04),
               const Text(
                 'For Further Details',

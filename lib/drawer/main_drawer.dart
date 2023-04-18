@@ -3,15 +3,16 @@ import '../screens/forgot_password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../owner/delete_prop.dart';
 import './terms.dart';
-import '../about.dart';
-import '../contact.dart';
+import 'about.dart';
+import 'contact.dart';
+import 'profile.dart';
+import 'settings.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({super.key});
 
   @override
   State<MainDrawer> createState() => _MainDrawerState();
-  
 }
 
 class _MainDrawerState extends State<MainDrawer> {
@@ -65,7 +66,7 @@ class _MainDrawerState extends State<MainDrawer> {
         ),
         ListTile(
           leading: const Icon(
-            Icons.person_add_alt_rounded,
+            Icons.person_outline,
             size: 26,
           ),
           title: const Text(
@@ -74,7 +75,10 @@ class _MainDrawerState extends State<MainDrawer> {
               fontSize: 19,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Profile()));
+          },
         ),
         ListTile(
           leading: const Icon(
@@ -117,19 +121,6 @@ class _MainDrawerState extends State<MainDrawer> {
           indent: 20,
           endIndent: 20,
           //color:Colors.black,
-        ),
-        ListTile(
-          leading: const Icon(
-            Icons.privacy_tip_outlined,
-            size: 26,
-          ),
-          title: const Text(
-            'Privacy Policy',
-            style: TextStyle(
-              fontSize: 19,
-            ),
-          ),
-          onTap: () {},
         ),
         ListTile(
           leading: const Icon(
@@ -182,11 +173,9 @@ class _MainDrawerState extends State<MainDrawer> {
         const Divider(
           height: 5,
           color: Colors.black,
-          // height: 15,
           thickness: 1,
           indent: 20,
           endIndent: 20,
-          //color:Colors.black,
         ),
         ListTile(
           leading: const Icon(
@@ -199,7 +188,10 @@ class _MainDrawerState extends State<MainDrawer> {
               fontSize: 19,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Settings()));
+          },
         ),
       ]),
     );
