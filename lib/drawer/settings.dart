@@ -21,11 +21,11 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
         appBar: AppBar(title: const Text('Settings')),
         body: Container(
-          padding: EdgeInsets.only(left: 16, right: 16, top: 25),
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 25),
           child: ListView(
             children: [
               Row(
-                children: [
+                children: const [
                   Icon(
                     Icons.person,
                     color: Colors.green,
@@ -39,7 +39,7 @@ class _SettingsState extends State<Settings> {
                   )
                 ],
               ),
-              Divider(
+              const Divider(
                 height: 15,
                 thickness: 2,
               ),
@@ -61,7 +61,7 @@ class _SettingsState extends State<Settings> {
                             fontWeight: FontWeight.w500,
                             color: Colors.grey[600]),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.grey,
                       )
@@ -82,7 +82,7 @@ class _SettingsState extends State<Settings> {
                             fontWeight: FontWeight.w500,
                             color: Colors.grey[600]),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.grey,
                       )
@@ -105,19 +105,14 @@ class _SettingsState extends State<Settings> {
                             fontWeight: FontWeight.w500,
                             color: Colors.grey[600]),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.grey,
                       )
                     ],
                   )),
               ListTile(
-                  onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const Contact()));
-                  },
+                  onTap: () {},
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -128,10 +123,11 @@ class _SettingsState extends State<Settings> {
                             fontWeight: FontWeight.w500,
                             color: Colors.grey[600]),
                       ),
-                      Text('English', style: TextStyle(color: Colors.grey)),
+                      const Text('English',
+                          style: TextStyle(color: Colors.grey)),
                     ],
                   )),
-              SizedBox(height: 45),
+              const SizedBox(height: 45),
               ElevatedButton(
                   onPressed: () {
                     signOut();
@@ -140,7 +136,7 @@ class _SettingsState extends State<Settings> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                    children: const [
                       Text('Logout'),
                       SizedBox(
                         width: 3,

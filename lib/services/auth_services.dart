@@ -17,6 +17,8 @@ class AuthServices {
     );
 
     //finally, let's sign in
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    return await FirebaseAuth.instance
+        .signInWithCredential(credential)
+        .then((value) {});
   }
 }

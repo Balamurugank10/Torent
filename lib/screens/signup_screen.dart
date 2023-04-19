@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:to_rent/services/auth_services.dart';
+import 'package:to_rent/user.dart';
 import '../reusable_widgets/reusable_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../reusable_widgets/my_button.dart';
 import '../reusable_widgets/widget_tile.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../notification_services.dart';
 
 class SignUpScreen extends StatefulWidget {
   final Function()? onTap;
@@ -19,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String? _email;
   String? _password;
   String? _confirmPassword;
+  late int _mobileNo;
   bool _obscureText = true;
 
   void signUpUser() async {
@@ -38,8 +42,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     //try sign up
     try {
       if (_password.toString() == _confirmPassword.toString()) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: _email.toString(), password: _password.toString());
+        final profile = Profiledb(
+            uname: "", emailId: _email.toString(), mobileNo: _mobileNo.toInt());
+
+        await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: _email.toString(), password: _password.toString())
+            .then(((value) {
+          createProfile(profile).then((value) => NotificationService()
+              .showNotification(
+                  title: 'TORENT', body: 'Welcome to Our Torent...'));
+        }));
       } else {
         showErrorMessage('Passwords Does not match');
       }
@@ -188,6 +201,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Enter your mobile no",
+                          fillColor: Colors.grey.shade200,
+                          filled: true,
+                          prefixIcon: const Icon(Icons.email_outlined),
+                        ),
+                        validator: (value) =>
+                            value != null && value.length != 10
+                                ? 'Enter a valid mobile no'
+                                : null,
+                        onChanged: (value) {
+                          _mobileNo = int.parse(value);
+                        },
+                        onSaved: (value) {
+                          _mobileNo = int.parse(value!);
+                        },
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     MyButton(onTap: signUpUser, title: 'SIGN UP'),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Padding(
@@ -248,5 +284,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
         )),
       ),
     );
+  }
+
+  Future createProfile(Profiledb profiledb) async {
+    //Reference to a document...
+    final docUser = FirebaseFirestore.instance.collection('profiles').doc();
+    profiledb.id = docUser.id;
+
+    final json = profiledb.toJson();
+
+    // Create document in cloud firestore and write data to firebase...
+    await docUser.set(json);
   }
 }

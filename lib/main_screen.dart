@@ -3,14 +3,14 @@ import './user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import './drawer/main_drawer.dart';
 
-class A extends StatefulWidget {
-  const A({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<A> createState() => _AState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _AState extends State<A> {
+class _HomeScreenState extends State<HomeScreen> {
   String city = "";
 
   @override

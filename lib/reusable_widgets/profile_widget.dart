@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_rent/drawer/profile.dart';
 
 class ProfileWidget extends StatelessWidget {
   final String imagePath;

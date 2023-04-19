@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:intl/intl.dart';
 import '../notification_services.dart';
-import '../a.dart';
+import '../main_screen.dart';
 import '../user.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:image_picker/image_picker.dart';
@@ -57,13 +57,12 @@ class _UploadScreenState extends State<UploadScreen> {
   List<String> multipleImages = [];
   final userAuth = FirebaseAuth.instance.currentUser!.email;
 
-  void sending_SMS(String msg, List<String> list_receipents) async {
-    String send_result =
-        await sendSMS(message: msg, recipients: list_receipents)
-            .catchError((err) {
+  void sendingSMS(String msg, List<String> listReceipents) async {
+    String sendResult = await sendSMS(message: msg, recipients: listReceipents)
+        .catchError((err) {
       print(err);
     });
-    print(send_result);
+    print(sendResult);
   }
 
   @override
@@ -246,6 +245,16 @@ class _UploadScreenState extends State<UploadScreen> {
                     unSelectedBorderColor: Colors.grey,
                     unSelectedColor: Colors.white,
                     selectedColor: Colors.blue),
+                const SizedBox(height: 15),
+                ElevatedButton(
+                    onPressed: () async {
+                      List<XFile>? images = await multiImagePicker();
+                      if (images.isNotEmpty) {
+                        multipleImages = await mip(images);
+                        print('multi images: $multipleImages');
+                      }
+                    },
+                    child: const Text('Upload Images')),
                 const SizedBox(height: 15),
                 TextFormField(
                   readOnly: true,
@@ -550,16 +559,6 @@ class _UploadScreenState extends State<UploadScreen> {
                   height: 15,
                 ),
                 ElevatedButton(
-                    onPressed: () async {
-                      List<XFile>? images = await multiImagePicker();
-                      if (images.isNotEmpty) {
-                        multipleImages = await mip(images);
-                        print('multi images: $multipleImages');
-                      }
-                    },
-                    child: const Text('Upload Images')),
-                const SizedBox(height: 15),
-                ElevatedButton(
                     onPressed: () {
                       setState(() {
                         if (formKey.currentState!.validate()) {}
@@ -605,10 +604,12 @@ class _UploadScreenState extends State<UploadScreen> {
                           .then((value) => NotificationService().showNotification(
                               title: 'TORENT',
                               body:
-                                  'Hai ${nameOwnerController.text}... \n \n Your Property Will Posted Successfully'))
+                                  'Hai ${nameOwnerController.text}...  Your Property Will Posted Successfully'))
                           .then((value) {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => const A()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()));
                       });
                       print('djkd $multipleImages');
 

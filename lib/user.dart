@@ -116,3 +116,30 @@ class Userdb {
         availableDate: (json['date'] as Timestamp).toDate(),
       );
 }
+
+class Profiledb {
+  String id;
+  final String uname;
+  final int mobileNo;
+  final String emailId;
+
+  Profiledb(
+      {this.id = "",
+      required this.uname,
+      required this.emailId,
+      required this.mobileNo});
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'uname': uname,
+        'emailId': emailId,
+        'mobileNo': mobileNo,
+      };
+
+  static Profiledb fromJson(Map<String, dynamic> json) => Profiledb(
+        id: json['id'],
+        uname: json['uname'],
+        emailId: json['emailId'],
+        mobileNo: json['mobileNo'],
+      );
+}

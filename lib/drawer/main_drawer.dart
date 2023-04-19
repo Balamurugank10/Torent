@@ -30,11 +30,13 @@ class _MainDrawerState extends State<MainDrawer> {
       child: ListView(children: [
         Container(
           height: MediaQuery.of(context).size.height * 0.29,
-          decoration: const BoxDecoration(color: Colors.blue),
+          decoration: const BoxDecoration(color: Colors.deepPurple),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 52,
-              backgroundImage: NetworkImage('$userDp'),
+              backgroundColor: Colors.deepOrange,
+              backgroundImage: NetworkImage(
+                  'https://png.pngtree.com/element_our/png/20181214/real-estate-house-logo-design-template-vector-illustration-png_269520.jpg'),
             ),
             const SizedBox(height: 20),
             Text(
@@ -116,11 +118,9 @@ class _MainDrawerState extends State<MainDrawer> {
         const Divider(
           height: 5,
           color: Colors.black,
-          // height: 15,
           thickness: 1,
           indent: 20,
           endIndent: 20,
-          //color:Colors.black,
         ),
         ListTile(
           leading: const Icon(

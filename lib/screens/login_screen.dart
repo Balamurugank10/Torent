@@ -288,11 +288,6 @@ Row signupOption(context) {
         ),
       ),
       GestureDetector(
-        // onTap: () {
-        //   Navigator.push(
-        //       context, MaterialPageRoute(builder: (context) => SignUpScreen()));
-        // },
-        //onTap: Widget.onTap,
         child: const Text(
           "Sign Up",
           style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),

@@ -33,7 +33,7 @@ class Terms extends StatelessWidget {
                 explanationTerms(
                     'While posting the properties, the owner should use a real location by clicking a dropdown menu like the flatNo, street, area, city, state. you should use correct location address of your property.'),
                 sizedHeight(),
-                headingTerms('Basic Imformation'),
+                headingTerms('Basic Information'),
                 explanationTerms(
                     "First, choose the date when your house will ready for rent. Then also use real information in other steps. Set a monthly rent of your property. Don/'t give wrong information."),
                 sizedHeight(),
