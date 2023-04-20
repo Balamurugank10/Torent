@@ -9,7 +9,6 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  //String? _email;
   final _emailController = TextEditingController();
 
   Future passwordReset() async {

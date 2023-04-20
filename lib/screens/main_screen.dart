@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../pages/favorite_page.dart';
 import '../owner/upload_screen.dart';
 import '../drawer/main_drawer.dart';
-import '../main_screen.dart';
+import '../a.dart';
 import '../drawer/settings.dart';
 
 class MainScreen extends StatefulWidget {

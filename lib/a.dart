@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(130),
+        preferredSize: const Size.fromHeight(120),
         child: AppBar(
             title: const Text("To-Rent"),
             centerTitle: true,
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
-                    //         builder: (context) =>  Settings(context)));
+                    //         builder: (context) => const Settings()));
                   },
                   icon: const Icon(Icons.settings))
             ],

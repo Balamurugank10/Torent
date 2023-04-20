@@ -13,9 +13,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  late final uname;
-  late final emailId;
-  late final mobileNo;
+  var uname;
+  var emailId;
+  var mobileNo;
   final userName = FirebaseAuth.instance.currentUser!.displayName;
   final userEmail = FirebaseAuth.instance.currentUser!.email;
   final userDp = FirebaseAuth.instance.currentUser!.photoURL;
@@ -67,7 +67,6 @@ class _ProfileState extends State<Profile> {
                                               text: '${data["uname"]}'),
                                           decoration: const InputDecoration(
                                               labelText: "Full Name",
-                                              // hintText: "$userName",
                                               floatingLabelBehavior:
                                                   FloatingLabelBehavior.always,
                                               hintStyle: TextStyle(

@@ -6,7 +6,6 @@ import 'package:to_rent/services/auth_services.dart';
 import '../reusable_widgets/reusable_widgets.dart';
 import 'package:email_validator/email_validator.dart';
 import '../reusable_widgets/widget_tile.dart';
-import './main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   final Function()? onTap;
@@ -228,34 +227,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-Widget skipOption2(BuildContext context) {
-  return TextButton(
-    child: const Text(
-      'Ask me Later',
-      style: TextStyle(
-          color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 20),
-    ),
-    onPressed: () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const MainScreen()));
-    },
-  );
-}
-
-Widget skipOption(context) {
-  return GestureDetector(
-    onTap: () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const MainScreen()));
-    },
-    child: const Text(
-      "Ask me Later",
-      style: TextStyle(
-          color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 20),
-    ),
-  );
-}
-
 Widget forgotPassword(BuildContext context) {
   return Padding(
       padding: const EdgeInsets.symmetric(
@@ -275,24 +246,4 @@ Widget forgotPassword(BuildContext context) {
           },
         )
       ]));
-}
-
-Row signupOption(context) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      const Text(
-        "Don't have account?",
-        style: TextStyle(
-          color: Colors.black45,
-        ),
-      ),
-      GestureDetector(
-        child: const Text(
-          "Sign Up",
-          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-        ),
-      ),
-    ],
-  );
 }

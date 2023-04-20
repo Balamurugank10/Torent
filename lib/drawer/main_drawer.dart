@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../screens/forgot_password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../owner/delete_prop.dart';
 import './terms.dart';
@@ -82,24 +81,24 @@ class _MainDrawerState extends State<MainDrawer> {
                 MaterialPageRoute(builder: (context) => const Profile()));
           },
         ),
-        ListTile(
-          leading: const Icon(
-            Icons.lock_outline,
-            size: 26,
-          ),
-          title: const Text(
-            'Change Password',
-            style: TextStyle(
-              fontSize: 19,
-            ),
-          ),
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ForgotPassword()));
-          },
-        ),
+        // ListTile(
+        //   leading: const Icon(
+        //     Icons.lock_outline,
+        //     size: 26,
+        //   ),
+        //   title: const Text(
+        //     'Change Password',
+        //     style: TextStyle(
+        //       fontSize: 19,
+        //     ),
+        //   ),
+        //   onTap: () {
+        //     Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //             builder: (context) => const ForgotPassword()));
+        //   },
+        // ),
         ListTile(
           leading: const Icon(
             Icons.logout_outlined,

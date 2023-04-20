@@ -26,10 +26,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscureText = true;
 
   void signUpUser() async {
-    // setState(() {
-    //   if (_formKey.currentState!.validate()) {}
-    // });
-
     //show loading circle
     showDialog(
         context: context,
@@ -136,16 +132,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         decoration: InputDecoration(
                             fillColor: Colors.grey.shade200,
                             filled: true,
-                            suffixIcon: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _obscureText = !_obscureText;
-                                });
-                              },
-                              child: Icon(_obscureText
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                            ),
                             labelText: "Enter your password",
                             prefixIcon: const Icon(Icons.lock_outline)),
                         validator: (String? value) {
