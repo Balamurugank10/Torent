@@ -41,7 +41,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Forgot Password'),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.deepPurple,
         elevation: 0,
       ),
       body: Center(
@@ -84,7 +84,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             const SizedBox(height: 25),
             MaterialButton(
               onPressed: passwordReset,
-              color: Colors.blue,
+              color: Colors.deepPurple,
               child: const Text('Reset Password'),
             )
           ],

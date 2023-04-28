@@ -18,11 +18,7 @@ class _DeletePropState extends State<DeleteProp> {
         appBar: AppBar(
           title: const Text('Your Properties'),
           actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.notifications,
-                )),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(

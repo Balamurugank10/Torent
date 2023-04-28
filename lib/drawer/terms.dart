@@ -13,6 +13,9 @@ class Terms extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(
+                  height: 20,
+                ),
                 headingTerms('Account'),
                 explanationTerms(
                     'Any people can create an account in the ToRent App. All account should be real. If anyone creates a fake account and ToRent app verify that as a fake then the account will be permanent disable in the ToRent application. So ensure that all account information is real.'),

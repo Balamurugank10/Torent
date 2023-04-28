@@ -7,7 +7,7 @@ import '../reusable_widgets/my_button.dart';
 import '../reusable_widgets/widget_tile.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../notification_services.dart';
+import '../notification_services/notification_services.dart';
 
 class SignUpScreen extends StatefulWidget {
   final Function()? onTap;

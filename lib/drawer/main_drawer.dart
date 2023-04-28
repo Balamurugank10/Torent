@@ -33,7 +33,7 @@ class _MainDrawerState extends State<MainDrawer> {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             const CircleAvatar(
               radius: 52,
-              backgroundColor: Colors.deepOrange,
+             // backgroundColor: Colors.deepOrange,
               backgroundImage: NetworkImage(
                   'https://png.pngtree.com/element_our/png/20181214/real-estate-house-logo-design-template-vector-illustration-png_269520.jpg'),
             ),

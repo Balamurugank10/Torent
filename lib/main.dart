@@ -1,10 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:to_rent/authentication/auth_page.dart';
-import 'package:to_rent/detail_screen.dart';
-import 'wastages/providers/categories.dart';
-import 'package:provider/provider.dart';
-import './notification_services.dart';
+import 'package:to_rent/screens/detail_screen.dart';
+import 'notification_services/notification_services.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,20 +17,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => Categories(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
-        ),
-        home: const AuthPage(),
-        debugShowCheckedModeBanner: false,
-        routes: {
-          // DetailScreen.routeName: (context) => const DetailScreen(),
-          "detail": (context) => const DetailScreen(),
-        },
-      ),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      home: const AuthPage(),
+      debugShowCheckedModeBanner: false,
+      routes: {
+        // DetailScreen.routeName: (context) => const DetailScreen(),
+        "detail": (context) => const DetailScreen(),
+      },
     );
   }
 }

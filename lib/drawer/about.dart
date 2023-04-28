@@ -14,7 +14,7 @@ class About extends StatelessWidget {
           child: Center(
               child: Column(
             children: [
-              const SizedBox(height: 7),
+              const SizedBox(height: 60),
               logoWidget("assets/images/logo.png"),
               const SizedBox(height: 10),
               const Text(

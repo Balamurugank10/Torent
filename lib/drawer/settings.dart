@@ -127,23 +127,6 @@ class _SettingsState extends State<Settings> {
                           style: TextStyle(color: Colors.grey)),
                     ],
                   )),
-              const SizedBox(height: 45),
-              ElevatedButton(
-                  onPressed: () {
-                    signOut();
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      Text('Logout'),
-                      SizedBox(
-                        width: 3,
-                      ),
-                      Icon(Icons.logout_outlined)
-                    ],
-                  ))
             ],
           ),
         ));

@@ -32,7 +32,7 @@ class _DetailScreenState extends State<DetailScreen> {
           IconButton(
               onPressed: () {},
               icon: const Icon(
-                Icons.notifications,
+                Icons.settings,
               )),
         ],
       ),
@@ -106,7 +106,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 6),
                           const Divider(
                             thickness: 0.5,
                             color: Colors.black,

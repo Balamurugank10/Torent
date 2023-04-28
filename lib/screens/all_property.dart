@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import './user.dart';
+//import 'package:to_rent/screens/login_screen.dart';
+import '../user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import './drawer/main_drawer.dart';
+import '../drawer/main_drawer.dart';
+import '../drawer/settings.dart';
+import 'forgot_password.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
             actions: [
               IconButton(
                   onPressed: () {
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => const ForgotPassword())));
+                    });
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
@@ -32,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: const Icon(Icons.settings))
             ],
             bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(50),
+                preferredSize: const Size.fromHeight(45),
                 child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextField(
@@ -89,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       child: Image.network(
                                         data["multipleImages"][0],
-                                        height: 250,
+                                        height: 235,
                                         width: double.infinity,
                                         fit: BoxFit.cover,
                                       ),
