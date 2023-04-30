@@ -12,7 +12,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
-    //var photoURL2 = FirebaseAuth.instance.currentUser?.photoURL;
+
     return Scaffold(
       body: Center(
         child: Column(

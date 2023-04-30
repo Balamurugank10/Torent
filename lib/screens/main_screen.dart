@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../pages/favorite_page.dart';
+import '../pages/favourite_page.dart';
 import '../owner/upload_screen.dart';
 import '../drawer/main_drawer.dart';
 import 'all_property.dart';
@@ -21,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final screens = [
     const HomeScreen(),
-    const FavoriteScreen(),
+    const FavouriteScreen(),
     const UploadScreen(),
   ];
 
@@ -31,7 +31,20 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: index == 0
-          ? null
+          ? AppBar(
+              title: const Text("To-Rent"),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Settings()));
+                    },
+                    icon: const Icon(Icons.settings))
+              ],
+            )
           : AppBar(
               title: const Text("To-Rent"),
               centerTitle: true,

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:to_rent/screens/login_screen.dart';
 import '../user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../drawer/main_drawer.dart';
-import '../drawer/settings.dart';
-import 'forgot_password.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,48 +16,65 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(120),
+        preferredSize: const Size.fromHeight(70),
         child: AppBar(
-            title: const Text("To-Rent"),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    setState(() {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => const ForgotPassword())));
-                    });
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const Settings()));
-                  },
-                  icon: const Icon(Icons.settings))
-            ],
-            bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(45),
-                child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide.none),
-                        filled: true,
-                        fillColor: Colors.white,
-                        prefixIcon: const Icon(Icons.search),
-                        hintText: 'Search your city',
-                      ),
-                      onChanged: (value) {
-                        setState(() {
-                          city = value;
-                        });
-                      },
-                    )))),
+          title: PreferredSize(
+              preferredSize: const Size.fromHeight(40),
+              child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide.none),
+                      filled: true,
+                      fillColor: Colors.white,
+                      prefixIcon: const Icon(Icons.search),
+                      hintText: 'Search your city',
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        city = value;
+                      });
+                    },
+                  ))),
+          // title: const Text("To-Rent"),
+          centerTitle: true,
+          // actions: [
+          //   IconButton(
+          //       onPressed: () {
+          //         setState(() {
+          //           Navigator.push(
+          //               context,
+          //               MaterialPageRoute(
+          //                   builder: ((context) => const ForgotPassword())));
+          //         });
+          //       },
+          //       icon: const Icon(Icons.settings))
+          // ],
+          // leading: PreferredSize(
+          //     preferredSize: const Size.fromHeight(45),
+          //     child: Padding(
+          //         padding: const EdgeInsets.all(10),
+          //         child: TextField(
+          //           decoration: InputDecoration(
+          //             border: OutlineInputBorder(
+          //                 borderRadius: BorderRadius.circular(5),
+          //                 borderSide: BorderSide.none),
+          //             filled: true,
+          //             fillColor: Colors.white,
+          //             prefixIcon: const Icon(Icons.search),
+          //             hintText: 'Search your city',
+          //           ),
+          //           onChanged: (value) {
+          //             setState(() {
+          //               city = value;
+          //             });
+          //           },
+          //         )))
+        ),
       ),
-      drawer: const MainDrawer(),
+      //drawer: const MainDrawer(),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance.collection('users').snapshots(),
           builder: (context, snapshot) {
@@ -74,9 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       var data = snapshot.data!.docs[index].data()
                           as Map<String, dynamic>;
-                      print(snapshot.data);
-                      print('data full is ${data}');
-                      print('data with number is ${data["mobile"]}');
+
                       if (city.isEmpty) {
                         return InkWell(
                           onTap: () {

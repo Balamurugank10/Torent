@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:intl/intl.dart';
 import '../notification_services/notification_services.dart';
-import '../screens/all_property.dart';
+//import '../screens/all_property.dart';
 import '../user.dart';
+import '../screens/main_screen.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_sms/flutter_sms.dart';
@@ -20,7 +21,6 @@ class UploadScreen extends StatefulWidget {
 }
 
 class _UploadScreenState extends State<UploadScreen> {
-  List<String> mobiles = ['8015677832', '8825772826'];
   GlobalKey<FormState> formKey = GlobalKey();
 
   final ageController = TextEditingController();
@@ -40,7 +40,12 @@ class _UploadScreenState extends State<UploadScreen> {
   final nameOwnerController = TextEditingController();
   final mobileOwnerController = TextEditingController();
   final emailOwnerController = TextEditingController();
-
+  // ignore: prefer_typing_uninitialized_variables
+  var uname;
+  // ignore: prefer_typing_uninitialized_variables
+  var emailId;
+  // ignore: prefer_typing_uninitialized_variables
+  var mobileNo;
   final availableDateController = TextEditingController();
   late String propertyType;
   late String bedrooms;
@@ -51,576 +56,675 @@ class _UploadScreenState extends State<UploadScreen> {
   String country = "";
   String state = "";
   String city = "";
-
   String img = "";
 
   List<String> multipleImages = [];
-  final userAuth = FirebaseAuth.instance.currentUser!.email;
+  final userEmail = FirebaseAuth.instance.currentUser!.email;
 
   void sendingSMS(String msg, List<String> listReceipents) async {
+    // ignore: unused_local_variable
     String sendResult = await sendSMS(message: msg, recipients: listReceipents)
-        .catchError((err) {
-      print(err);
-    });
-    print(sendResult);
+        .catchError((err) {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(10),
-      shrinkWrap: true,
-      children: [
-        Form(
-            key: formKey,
-            child: Column(
-              children: [
-                Row(
-                  children: const [
-                    Text('*',
-                        style: TextStyle(color: Colors.red, fontSize: 24)),
-                    Text(
-                      'indicates a mandatory field',
-                      style: TextStyle(color: Colors.black, fontSize: 20),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 25),
-                labels('Property Type', true),
-                const SizedBox(height: 10),
-                CustomRadioButton(
-                    buttonLables: const [
-                      'Independent House',
-                      'Apartment',
-                      'Residency',
-                      'Villa'
-                    ],
-                    buttonValues: const [
-                      'HOUSE',
-                      'APARTMENT',
-                      'RESIDENCY',
-                      'VILLA'
-                    ],
-                    buttonTextStyle: const ButtonTextStyle(
-                        selectedColor: Colors.white,
-                        unSelectedColor: Colors.grey),
-                    radioButtonValue: (value) {
-                      setState(() {
-                        propertyType = value;
-                      });
-                    },
-                    autoWidth: true,
-                    enableShape: true,
-                    selectedBorderColor: Colors.blue,
-                    enableButtonWrap: true,
-                    unSelectedBorderColor: Colors.grey,
-                    unSelectedColor: Colors.white,
-                    selectedColor: Colors.blue),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: ageController,
-                  keyboardType: TextInputType.datetime,
-                  decoration: InputDecoration(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("Age of Property in years "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Age is Required';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 15),
-                labels('Bathrooms', true),
-                const SizedBox(height: 10),
-                CustomRadioButton(
-                    buttonLables: const [
-                      '1',
-                      '2',
-                      '3',
-                      '4',
-                      '5',
-                    ],
-                    buttonValues: const [
-                      '1',
-                      '2',
-                      '3',
-                      '4',
-                      '5',
-                    ],
-                    buttonTextStyle: const ButtonTextStyle(
-                        selectedColor: Colors.white,
-                        unSelectedColor: Colors.grey),
-                    radioButtonValue: (value) {
-                      setState(() {
-                        bathrooms = value;
-                      });
-                    },
-                    autoWidth: true,
-                    enableShape: true,
-                    selectedBorderColor: Colors.blue,
-                    enableButtonWrap: true,
-                    unSelectedBorderColor: Colors.grey,
-                    unSelectedColor: Colors.white,
-                    selectedColor: Colors.blue),
-                const SizedBox(height: 15),
-                labels('BedRooms', true),
-                const SizedBox(height: 10),
-                CustomRadioButton(
-                    buttonLables: const ['1', '2', '3', '4', '5', '6'],
-                    buttonValues: const ['1', '2', '3', '4', '5', '6'],
-                    buttonTextStyle: const ButtonTextStyle(
-                        selectedColor: Colors.white,
-                        unSelectedColor: Colors.grey),
-                    radioButtonValue: (value) {
-                      setState(() {
-                        bedrooms = value;
-                      });
-                    },
-                    autoWidth: true,
-                    enableShape: true,
-                    selectedBorderColor: Colors.blue,
-                    enableButtonWrap: true,
-                    unSelectedBorderColor: Colors.grey,
-                    unSelectedColor: Colors.white,
-                    selectedColor: Colors.blue),
-                const SizedBox(height: 15),
-                labels('Furnish Type', true),
-                const SizedBox(height: 10),
-                CustomRadioButton(
-                    buttonLables: const [
-                      'Fully Furnished',
-                      'Semi Furnished',
-                      'Unfurnished',
-                    ],
-                    buttonValues: const [
-                      'Fully Furnished',
-                      'Semi Furnished',
-                      'Unfurnished',
-                    ],
-                    buttonTextStyle: const ButtonTextStyle(
-                        selectedColor: Colors.white,
-                        unSelectedColor: Colors.grey),
-                    radioButtonValue: (value) {
-                      setState(() {
-                        furnishedType = value;
-                      });
-                    },
-                    autoWidth: true,
-                    enableShape: true,
-                    selectedBorderColor: Colors.blue,
-                    enableButtonWrap: true,
-                    unSelectedBorderColor: Colors.grey,
-                    unSelectedColor: Colors.white,
-                    selectedColor: Colors.blue),
-                const SizedBox(height: 15),
-                labels('Parking', true),
-                const SizedBox(height: 10),
-                CustomRadioButton(
-                    buttonLables: const ['1', '2', '3'],
-                    buttonValues: const ['1', '2', '3'],
-                    buttonTextStyle: const ButtonTextStyle(
-                        selectedColor: Colors.white,
-                        unSelectedColor: Colors.grey),
-                    radioButtonValue: (value) {
-                      setState(() {
-                        parking = value;
-                      });
-                    },
-                    autoWidth: true,
-                    enableShape: true,
-                    selectedBorderColor: Colors.blue,
-                    enableButtonWrap: true,
-                    unSelectedBorderColor: Colors.grey,
-                    unSelectedColor: Colors.white,
-                    selectedColor: Colors.blue),
-                const SizedBox(height: 15),
-                ElevatedButton(
-                    onPressed: () async {
-                      List<XFile>? images = await multiImagePicker();
-                      if (images.isNotEmpty) {
-                        multipleImages = await mip(images);
-                        print('multi images: $multipleImages');
-                      }
-                    },
-                    child: const Text('Upload Images')),
-                const SizedBox(height: 15),
-                TextFormField(
-                  readOnly: true,
-                  controller: availableDateController,
-                  keyboardType: TextInputType.datetime,
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2101));
+    return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('profiles')
+            .where("emailId", isEqualTo: userEmail)
+            .snapshots(),
+        builder: ((context, snapshot) {
+          return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                var data =
+                    snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                uname = data["uname"];
+                mobileNo = data["mobileNo"];
+                return SingleChildScrollView(
+                  padding: const EdgeInsets.all(10),
+                  //shrinkWrap: true,
+                  child: Column(
+                    children: [
+                      Form(
+                          key: formKey,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: const [
+                                  Text('*',
+                                      style: TextStyle(
+                                          color: Colors.red, fontSize: 24)),
+                                  Text(
+                                    'indicates a mandatory field',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 25),
+                              labels('Property Type', true),
+                              const SizedBox(height: 10),
+                              CustomRadioButton(
+                                  buttonLables: const [
+                                    'Independent House',
+                                    'Apartment',
+                                    'Residency',
+                                    'Villa'
+                                  ],
+                                  buttonValues: const [
+                                    'HOUSE',
+                                    'APARTMENT',
+                                    'RESIDENCY',
+                                    'VILLA'
+                                  ],
+                                  buttonTextStyle: const ButtonTextStyle(
+                                      selectedColor: Colors.white,
+                                      unSelectedColor: Colors.grey),
+                                  radioButtonValue: (value) {
+                                    setState(() {
+                                      propertyType = value;
+                                    });
+                                  },
+                                  autoWidth: true,
+                                  enableShape: true,
+                                  selectedBorderColor: Colors.blue,
+                                  enableButtonWrap: true,
+                                  unSelectedBorderColor: Colors.grey,
+                                  unSelectedColor: Colors.white,
+                                  selectedColor: Colors.blue),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: ageController,
+                                keyboardType: TextInputType.datetime,
+                                decoration: InputDecoration(
+                                    label: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Text("Age of Property in years "),
+                                        Text('*',
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                        Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                        ),
+                                      ],
+                                    ),
+                                    floatingLabelStyle:
+                                        const TextStyle(color: Colors.purple),
+                                    border: const OutlineInputBorder()),
+                                onSaved: (newValue) {},
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Age is Required';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              labels('Bathrooms', true),
+                              const SizedBox(height: 10),
+                              CustomRadioButton(
+                                  buttonLables: const [
+                                    '1',
+                                    '2',
+                                    '3',
+                                    '4',
+                                    '5',
+                                  ],
+                                  buttonValues: const [
+                                    '1',
+                                    '2',
+                                    '3',
+                                    '4',
+                                    '5',
+                                  ],
+                                  buttonTextStyle: const ButtonTextStyle(
+                                      selectedColor: Colors.white,
+                                      unSelectedColor: Colors.grey),
+                                  radioButtonValue: (value) {
+                                    setState(() {
+                                      bathrooms = value;
+                                    });
+                                  },
+                                  autoWidth: true,
+                                  enableShape: true,
+                                  selectedBorderColor: Colors.blue,
+                                  enableButtonWrap: true,
+                                  unSelectedBorderColor: Colors.grey,
+                                  unSelectedColor: Colors.white,
+                                  selectedColor: Colors.blue),
+                              const SizedBox(height: 15),
+                              labels('BedRooms', true),
+                              const SizedBox(height: 10),
+                              CustomRadioButton(
+                                  buttonLables: const [
+                                    '1',
+                                    '2',
+                                    '3',
+                                    '4',
+                                    '5',
+                                    '6'
+                                  ],
+                                  buttonValues: const [
+                                    '1',
+                                    '2',
+                                    '3',
+                                    '4',
+                                    '5',
+                                    '6'
+                                  ],
+                                  buttonTextStyle: const ButtonTextStyle(
+                                      selectedColor: Colors.white,
+                                      unSelectedColor: Colors.grey),
+                                  radioButtonValue: (value) {
+                                    setState(() {
+                                      bedrooms = value;
+                                    });
+                                  },
+                                  autoWidth: true,
+                                  enableShape: true,
+                                  selectedBorderColor: Colors.blue,
+                                  enableButtonWrap: true,
+                                  unSelectedBorderColor: Colors.grey,
+                                  unSelectedColor: Colors.white,
+                                  selectedColor: Colors.blue),
+                              const SizedBox(height: 15),
+                              labels('Furnish Type', true),
+                              const SizedBox(height: 10),
+                              CustomRadioButton(
+                                  buttonLables: const [
+                                    'Fully Furnished',
+                                    'Semi Furnished',
+                                    'Unfurnished',
+                                  ],
+                                  buttonValues: const [
+                                    'Fully Furnished',
+                                    'Semi Furnished',
+                                    'Unfurnished',
+                                  ],
+                                  buttonTextStyle: const ButtonTextStyle(
+                                      selectedColor: Colors.white,
+                                      unSelectedColor: Colors.grey),
+                                  radioButtonValue: (value) {
+                                    setState(() {
+                                      furnishedType = value;
+                                    });
+                                  },
+                                  autoWidth: true,
+                                  enableShape: true,
+                                  selectedBorderColor: Colors.blue,
+                                  enableButtonWrap: true,
+                                  unSelectedBorderColor: Colors.grey,
+                                  unSelectedColor: Colors.white,
+                                  selectedColor: Colors.blue),
+                              const SizedBox(height: 15),
+                              labels('Parking', true),
+                              const SizedBox(height: 10),
+                              CustomRadioButton(
+                                  buttonLables: const ['1', '2', '3'],
+                                  buttonValues: const ['1', '2', '3'],
+                                  buttonTextStyle: const ButtonTextStyle(
+                                      selectedColor: Colors.white,
+                                      unSelectedColor: Colors.grey),
+                                  radioButtonValue: (value) {
+                                    setState(() {
+                                      parking = value;
+                                    });
+                                  },
+                                  autoWidth: true,
+                                  enableShape: true,
+                                  selectedBorderColor: Colors.blue,
+                                  enableButtonWrap: true,
+                                  unSelectedBorderColor: Colors.grey,
+                                  unSelectedColor: Colors.white,
+                                  selectedColor: Colors.blue),
+                              const SizedBox(height: 15),
+                              ElevatedButton(
+                                  onPressed: () async {
+                                    List<XFile>? images =
+                                        await multiImagePicker();
+                                    if (images.isNotEmpty) {
+                                      multipleImages = await mip(images);
+                                      print('multi images: $multipleImages');
+                                    }
+                                  },
+                                  child: const Text('Upload Images')),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                readOnly: true,
+                                controller: availableDateController,
+                                keyboardType: TextInputType.datetime,
+                                onTap: () async {
+                                  DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(2000),
+                                      lastDate: DateTime(2101));
 
-                    if (pickedDate != null) {
-                      String formattedDate =
-                          DateFormat("yyyy-MM-dd").format(pickedDate);
+                                  if (pickedDate != null) {
+                                    String formattedDate =
+                                        DateFormat("yyyy-MM-dd")
+                                            .format(pickedDate);
 
-                      setState(() {
-                        availableDateController.text = formattedDate.toString();
-                      });
-                    }
-                  },
-                  decoration: InputDecoration(
-                    icon: const Icon(Icons.calendar_today),
-                    label: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Text("Available from "),
-                        Text('*', style: TextStyle(color: Colors.red)),
-                        Padding(
-                          padding: EdgeInsets.all(3.0),
-                        ),
-                      ],
-                    ),
-                    floatingLabelStyle: const TextStyle(color: Colors.purple),
+                                    setState(() {
+                                      availableDateController.text =
+                                          formattedDate.toString();
+                                    });
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  icon: const Icon(Icons.calendar_today),
+                                  label: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: const [
+                                      Text("Available from "),
+                                      Text('*',
+                                          style: TextStyle(color: Colors.red)),
+                                      Padding(
+                                        padding: EdgeInsets.all(3.0),
+                                      ),
+                                    ],
+                                  ),
+                                  floatingLabelStyle:
+                                      const TextStyle(color: Colors.purple),
+                                ),
+                                onSaved: (newValue) {},
+                                validator: (value) {
+                                  return value!.isEmpty
+                                      ? 'Required field'
+                                      : null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: monthlyRentController,
+                                validator: (value) {
+                                  return value!.isEmpty
+                                      ? 'Rent is required'
+                                      : null;
+                                },
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    label: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Text("Monthly Rent "),
+                                        Text('*',
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                        Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                        ),
+                                      ],
+                                    ),
+                                    prefix: const Text('₹ '),
+                                    floatingLabelStyle:
+                                        const TextStyle(color: Colors.purple),
+                                    border: const OutlineInputBorder()),
+                                onSaved: (newValue) {},
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: maintenanceController,
+                                validator: (value) {
+                                  return value!.isEmpty
+                                      ? 'Required field'
+                                      : null;
+                                },
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                    prefix: Text('₹ '),
+                                    labelText: 'Maintenance Charges(per month)',
+                                    floatingLabelStyle:
+                                        TextStyle(color: Colors.purple),
+                                    border: OutlineInputBorder()),
+                                onSaved: (newValue) {},
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: sqftController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    label: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Text("Built Up Area "),
+                                        Text('*',
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                        Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                        ),
+                                      ],
+                                    ),
+                                    suffix: const Text('Sq. ft.'),
+                                    floatingLabelStyle:
+                                        const TextStyle(color: Colors.purple),
+                                    border: const OutlineInputBorder()),
+                                onSaved: (newValue) {},
+                                validator: (value) {
+                                  return value!.isEmpty
+                                      ? 'Required field'
+                                      : null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: descriptionController,
+                                maxLines: 4,
+                                keyboardType: TextInputType.multiline,
+                                decoration: const InputDecoration(
+                                    hintText:
+                                        "Description about your property in 100 words",
+                                    suffix: Text(
+                                      '*',
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                    floatingLabelStyle:
+                                        TextStyle(color: Colors.purple),
+                                    border: OutlineInputBorder()),
+                                onSaved: (newValue) {},
+                                validator: (value) {
+                                  return value!.isEmpty
+                                      ? 'Required field'
+                                      : null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              const SizedBox(height: 30),
+                              const Text(
+                                'Address Details',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                              const SizedBox(height: 10),
+                              CSCPicker(
+                                showCities: true,
+                                showStates: true,
+                                defaultCountry: CscCountry.India,
+                                disableCountry: true,
+                                countryDropdownLabel: "Country*",
+                                stateDropdownLabel: "State*",
+                                cityDropdownLabel: "City*",
+                                layout: Layout.vertical,
+                                onCountryChanged: (value) {
+                                  setState(() {
+                                    country = value;
+                                  });
+                                },
+                                onStateChanged: (value) {
+                                  setState(() {
+                                    state = value.toString();
+                                  });
+                                },
+                                onCityChanged: (value) {
+                                  setState(() {
+                                    city = value.toString();
+                                  });
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: areaController,
+                                decoration: InputDecoration(
+                                    label: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Text("Area "),
+                                        Text('*',
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                        Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                        ),
+                                      ],
+                                    ),
+                                    floatingLabelStyle:
+                                        const TextStyle(color: Colors.purple),
+                                    border: const OutlineInputBorder()),
+                                onSaved: (newValue) {},
+                                validator: (value) {
+                                  return value!.isEmpty
+                                      ? 'Area Required'
+                                      : null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: streetController,
+                                decoration: const InputDecoration(
+                                    labelText: 'Street',
+                                    floatingLabelStyle:
+                                        TextStyle(color: Colors.purple),
+                                    border: OutlineInputBorder()),
+                                onSaved: (newValue) {},
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: flatNoController,
+                                decoration: InputDecoration(
+                                    label: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Text("Flat No "),
+                                        Text('*',
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                        Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                        ),
+                                      ],
+                                    ),
+                                    prefix: const Text('No. '),
+                                    floatingLabelStyle:
+                                        const TextStyle(color: Colors.purple),
+                                    border: const OutlineInputBorder()),
+                                onSaved: (newValue) {},
+                                validator: (value) {
+                                  return value!.isEmpty
+                                      ? 'Required field'
+                                      : null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: pincodeController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    label: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Text("Pincode "),
+                                        Text('*',
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                        Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                        ),
+                                      ],
+                                    ),
+                                    floatingLabelStyle:
+                                        const TextStyle(color: Colors.purple),
+                                    border: const OutlineInputBorder()),
+                                onSaved: (newValue) {},
+                                validator: (value) {
+                                  if (value!.length != 6) {
+                                    return 'Pincode must be 6 digits';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                controller: landmarkController,
+                                decoration: InputDecoration(
+                                    label: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Text("Landmark "),
+                                        Text('*',
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                        Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                        ),
+                                      ],
+                                    ),
+                                    floatingLabelStyle:
+                                        const TextStyle(color: Colors.purple),
+                                    border: const OutlineInputBorder()),
+                                onSaved: (newValue) {},
+                                validator: (value) {
+                                  return value!.isEmpty
+                                      ? 'Required field'
+                                      : null;
+                                },
+                              ),
+                              const SizedBox(height: 30),
+                              const Text(
+                                'Owner Details',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                              const SizedBox(height: 20),
+                              TextFormField(
+                                onChanged: (value) {
+                                  uname = value;
+                                },
+                                controller: TextEditingController(
+                                    text: '${data["uname"]}'),
+                                decoration: InputDecoration(
+                                    label: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Text("Name "),
+                                        Text('*',
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                        Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                        ),
+                                      ],
+                                    ),
+                                    floatingLabelStyle:
+                                        const TextStyle(color: Colors.purple),
+                                    border: const OutlineInputBorder()),
+                                validator: (value) {
+                                  return value!.isEmpty
+                                      ? 'Required field'
+                                      : null;
+                                },
+                              ),
+                              const SizedBox(height: 15),
+                              TextFormField(
+                                onChanged: (value) {
+                                  mobileNo = value;
+                                },
+                                controller: TextEditingController(
+                                    text: '${data["mobileNo"]}'),
+                                keyboardType: TextInputType.phone,
+                                decoration: InputDecoration(
+                                    label: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Text("Mobile No "),
+                                        Text('*',
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                        Padding(
+                                          padding: EdgeInsets.all(3.0),
+                                        ),
+                                      ],
+                                    ),
+                                    prefix: const Text('+91 '),
+                                    //labelText: '${data["mobileNo"]}',
+                                    //hintText: '${data["mobileNo"]}',
+                                    floatingLabelStyle:
+                                        const TextStyle(color: Colors.purple),
+                                    border: const OutlineInputBorder()),
+                                onSaved: (value) {
+                                  mobileNo = value;
+                                },
+                                validator: (value) {
+                                  if (value!.length != 10) {
+                                    return 'Mobile number contain 10 digits';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      if (formKey.currentState!.validate()) {}
+                                      if (multipleImages == [] ||
+                                          multipleImages.isEmpty) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    'Please upload image')));
+                                        return;
+                                      }
+                                    });
+
+                                    final user = Userdb(
+                                      name: uname.toString(),
+                                      age: int.parse(ageController.text),
+                                      bedrooms: int.parse(bedrooms),
+                                      bathrooms: int.parse(bathrooms),
+                                      area: areaController.text,
+                                      carpet: 78.0,
+                                      city: city,
+                                      description: descriptionController.text,
+                                      email: userEmail.toString(),
+                                      flatno: flatNoController.text,
+                                      furnished: furnishedType,
+                                      landmark: landmarkController.text,
+                                      maintenance:
+                                          int.parse(maintenanceController.text),
+                                      mobile: int.parse(mobileNo.toString()),
+                                      parking: int.parse(parking),
+                                      pincode:
+                                          int.parse(pincodeController.text),
+                                      propType: propertyType,
+                                      rent:
+                                          int.parse(monthlyRentController.text),
+                                      sqft: double.parse(sqftController.text),
+                                      state: state,
+                                      country: country,
+                                      street: streetController.text,
+                                      availableDate: DateTime.parse(
+                                          availableDateController.text),
+                                      isfavorite: false,
+                                      multipleImages: multipleImages,
+                                    );
+
+                                    createUser(user)
+                                        .then((value) => NotificationService()
+                                            .showNotification(
+                                                title: 'TORENT',
+                                                body:
+                                                    'Hai ${nameOwnerController.text}...  Your Property Will Posted Successfully'))
+                                        .then((value) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const MainScreen()));
+                                    });
+                                    print('djkd $multipleImages');
+                                  },
+                                  child: const Text('Submit')),
+                              const SizedBox(height: 15),
+                            ],
+                          ))
+                    ],
                   ),
-                  onSaved: (newValue) {},
-                  validator: (value) {
-                    return value!.isEmpty ? 'Required field' : null;
-                  },
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: monthlyRentController,
-                  validator: (value) {
-                    return value!.isEmpty ? 'Rent is required' : null;
-                  },
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("Monthly Rent "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      prefix: const Text('₹ '),
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: maintenanceController,
-                  validator: (value) {
-                    return value!.isEmpty ? 'Required field' : null;
-                  },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                      prefix: Text('₹ '),
-                      labelText: 'Maintenance Charges(per month)',
-                      floatingLabelStyle: TextStyle(color: Colors.purple),
-                      border: OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: sqftController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("Built Up Area "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      suffix: const Text('Sq. ft.'),
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                  validator: (value) {
-                    return value!.isEmpty ? 'Required field' : null;
-                  },
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: descriptionController,
-                  maxLines: 4,
-                  keyboardType: TextInputType.multiline,
-                  decoration: const InputDecoration(
-                      hintText: "Description about your property in 100 words",
-                      suffix: Text(
-                        '*',
-                        style: TextStyle(color: Colors.red),
-                      ),
-                      floatingLabelStyle: TextStyle(color: Colors.purple),
-                      border: OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                  validator: (value) {
-                    return value!.isEmpty ? 'Required field' : null;
-                  },
-                ),
-                const SizedBox(height: 15),
-                const SizedBox(height: 30),
-                const Text(
-                  'Address Details',
-                  style: TextStyle(fontSize: 30),
-                ),
-                const SizedBox(height: 10),
-                CSCPicker(
-                  showCities: true,
-                  showStates: true,
-                  defaultCountry: CscCountry.India,
-                  disableCountry: true,
-                  countryDropdownLabel: "Country*",
-                  stateDropdownLabel: "State*",
-                  cityDropdownLabel: "City*",
-                  layout: Layout.vertical,
-                  onCountryChanged: (value) {
-                    setState(() {
-                      country = value;
-                    });
-                  },
-                  onStateChanged: (value) {
-                    setState(() {
-                      state = value.toString();
-                    });
-                  },
-                  onCityChanged: (value) {
-                    setState(() {
-                      city = value.toString();
-                    });
-                  },
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: areaController,
-                  decoration: InputDecoration(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("Area "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                  validator: (value) {
-                    return value!.isEmpty ? 'Area Required' : null;
-                  },
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: streetController,
-                  decoration: const InputDecoration(
-                      labelText: 'Street',
-                      floatingLabelStyle: TextStyle(color: Colors.purple),
-                      border: OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: flatNoController,
-                  decoration: InputDecoration(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("Flat No "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      prefix: const Text('No. '),
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                  validator: (value) {
-                    return value!.isEmpty ? 'Required field' : null;
-                  },
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: pincodeController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("Pincode "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                  validator: (value) {
-                    if (value!.length != 6) {
-                      return 'Pincode must be 6 digits';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: landmarkController,
-                  decoration: InputDecoration(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("Landmark "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                  validator: (value) {
-                    return value!.isEmpty ? 'Required field' : null;
-                  },
-                ),
-                const SizedBox(height: 30),
-                const Text(
-                  'Owner Details',
-                  style: TextStyle(fontSize: 30),
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: nameOwnerController,
-                  decoration: InputDecoration(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("Name "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                  validator: (value) {
-                    return value!.isEmpty ? 'Required field' : null;
-                  },
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: mobileOwnerController,
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text("Mobile No "),
-                          Text('*', style: TextStyle(color: Colors.red)),
-                          Padding(
-                            padding: EdgeInsets.all(3.0),
-                          ),
-                        ],
-                      ),
-                      prefix: const Text('+91 '),
-                      floatingLabelStyle: const TextStyle(color: Colors.purple),
-                      border: const OutlineInputBorder()),
-                  onSaved: (newValue) {},
-                  validator: (value) {
-                    if (value!.length != 10) {
-                      return 'Mobile number contain 10 digits';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        if (formKey.currentState!.validate()) {}
-                        if (multipleImages == []) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Please upload image')));
-                          return;
-                        }
-                        mobiles.add(mobileOwnerController.text.toString());
-                      });
-
-                      final user = Userdb(
-                        name: nameOwnerController.text,
-                        age: int.parse(ageController.text),
-                        bedrooms: int.parse(bedrooms),
-                        bathrooms: int.parse(bathrooms),
-                        area: areaController.text,
-                        carpet: 78.0,
-                        city: city,
-                        description: descriptionController.text,
-                        email: userAuth.toString(),
-                        flatno: flatNoController.text,
-                        furnished: furnishedType,
-                        landmark: landmarkController.text,
-                        maintenance: int.parse(maintenanceController.text),
-                        mobile: int.parse(mobileOwnerController.text),
-                        parking: int.parse(parking),
-                        pincode: int.parse(pincodeController.text),
-                        propType: propertyType,
-                        rent: int.parse(monthlyRentController.text),
-                        sqft: double.parse(sqftController.text),
-                        state: state,
-                        country: country,
-                        street: streetController.text,
-                        availableDate:
-                            DateTime.parse(availableDateController.text),
-                        isfavorite: false,
-                        multipleImages: multipleImages,
-                      );
-
-                      createUser(user)
-                          .then((value) => NotificationService().showNotification(
-                              title: 'TORENT',
-                              body:
-                                  'Hai ${nameOwnerController.text}...  Your Property Will Posted Successfully'))
-                          .then((value) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomeScreen()));
-                      });
-                      print('djkd $multipleImages');
-
-                      // Navigator.pop(context);
-                    },
-                    child: const Text('Submit')),
-                const SizedBox(height: 15),
-              ],
-            ))
-      ],
-    );
+                );
+              });
+        }));
   }
 
   Future<List<String>> mip(List<XFile> list) async {
@@ -650,7 +754,7 @@ class _UploadScreenState extends State<UploadScreen> {
         FirebaseStorage.instance.ref("images/${getImageName(image)}");
     await db.putFile(File(image.path));
     final downloadedFile = await db.getDownloadURL();
-    print("Downloaded FB path:" + downloadedFile);
+
     return downloadedFile;
   }
 

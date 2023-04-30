@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-//import '../reusable_widgets/profile_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:to_rent/screens/main_screen.dart';
 import '../reusable_widgets/reusable_widgets.dart';
@@ -13,14 +12,18 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  // ignore: prefer_typing_uninitialized_variables
   var uname;
+  // ignore: prefer_typing_uninitialized_variables
   var emailId;
+  // ignore: prefer_typing_uninitialized_variables
   var mobileNo;
   final userName = FirebaseAuth.instance.currentUser!.displayName;
   final userEmail = FirebaseAuth.instance.currentUser!.email;
   final userDp = FirebaseAuth.instance.currentUser!.photoURL;
   var imgUrl =
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,6 +94,7 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         const SizedBox(height: 15),
                                         TextField(
+                                          keyboardType: TextInputType.phone,
                                           onChanged: (value) {
                                             mobileNo = value;
                                           },
@@ -98,7 +102,6 @@ class _ProfileState extends State<Profile> {
                                               text: '${data["mobileNo"]}'),
                                           decoration: const InputDecoration(
                                               labelText: "Mobile No",
-                                              //hintText: "8825772826",
                                               floatingLabelBehavior:
                                                   FloatingLabelBehavior.always,
                                               hintStyle: TextStyle(
@@ -114,9 +117,6 @@ class _ProfileState extends State<Profile> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             OutlinedButton(
-                                                // shape: RoundedRectangleBorder(
-                                                //     borderRadius: BorderRadius.circular(20)),
-                                                // padding: EdgeInsets.symmetric(horizontal: 50),
                                                 onPressed: () {
                                                   Navigator.push(
                                                       context,
@@ -158,11 +158,6 @@ class _ProfileState extends State<Profile> {
                                     const SizedBox(
                                       height: 24,
                                     ),
-                                    // buildName(
-                                    //   '${data["uname"]}',
-                                    //   '${data["emailId"]}',
-                                    //   '${data["mobileNo"]}',
-                                    //),
                                   ],
                                 ),
                               ),
@@ -170,45 +165,4 @@ class _ProfileState extends State<Profile> {
                       });
             })));
   }
-
-  Widget buildName(String name, String email, String mobile) => Column(
-        children: [
-          TextField(
-            onChanged: (value) {},
-            controller: TextEditingController(text: name),
-            decoration: const InputDecoration(
-                labelText: "Full Name",
-                // hintText: "$userName",
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                hintStyle: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black)),
-          ),
-          const SizedBox(height: 15),
-          TextField(
-            controller: TextEditingController(text: "$userEmail"),
-            decoration: const InputDecoration(
-                labelText: "E-mail",
-                //hintText: "$userEmail",
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                hintStyle: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black)),
-          ),
-          const SizedBox(height: 15),
-          TextField(
-            controller: TextEditingController(text: mobile),
-            decoration: const InputDecoration(
-                labelText: "Mobile No",
-                //hintText: "8825772826",
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                hintStyle: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black)),
-          ),
-        ],
-      );
 }
