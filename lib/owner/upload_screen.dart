@@ -287,7 +287,7 @@ class _UploadScreenState extends State<UploadScreen> {
                                         await multiImagePicker();
                                     if (images.isNotEmpty) {
                                       multipleImages = await mip(images);
-                                      print('multi images: $multipleImages');
+                                      // print('multi images: $multipleImages');
                                     }
                                   },
                                   child: const Text('Upload Images')),
@@ -714,7 +714,7 @@ class _UploadScreenState extends State<UploadScreen> {
                                               builder: (context) =>
                                                   const MainScreen()));
                                     });
-                                    print('djkd $multipleImages');
+                                    //  print('djkd $multipleImages');
                                   },
                                   child: const Text('Submit')),
                               const SizedBox(height: 15),
@@ -730,7 +730,7 @@ class _UploadScreenState extends State<UploadScreen> {
   Future<List<String>> mip(List<XFile> list) async {
     List<String> path = [];
 
-    print("Store image path");
+    // print("Store image path");
     for (XFile i in list) {
       path.add(await uploadImage(i));
     }
@@ -739,11 +739,11 @@ class _UploadScreenState extends State<UploadScreen> {
   }
 
   Future<List<XFile>> multiImagePicker() async {
-    print("Inside the MultiImage picker");
+    // print("Inside the MultiImage picker");
     List<XFile>? images = await ImagePicker().pickMultiImage();
     if (images.isNotEmpty) {
-      print("Multi image is not empty condition");
-      print(images);
+      // print("Multi image is not empty condition");
+      //  print(images);
       return images;
     }
     return [];

@@ -40,38 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ))),
           // title: const Text("To-Rent"),
           centerTitle: true,
-          // actions: [
-          //   IconButton(
-          //       onPressed: () {
-          //         setState(() {
-          //           Navigator.push(
-          //               context,
-          //               MaterialPageRoute(
-          //                   builder: ((context) => const ForgotPassword())));
-          //         });
-          //       },
-          //       icon: const Icon(Icons.settings))
-          // ],
-          // leading: PreferredSize(
-          //     preferredSize: const Size.fromHeight(45),
-          //     child: Padding(
-          //         padding: const EdgeInsets.all(10),
-          //         child: TextField(
-          //           decoration: InputDecoration(
-          //             border: OutlineInputBorder(
-          //                 borderRadius: BorderRadius.circular(5),
-          //                 borderSide: BorderSide.none),
-          //             filled: true,
-          //             fillColor: Colors.white,
-          //             prefixIcon: const Icon(Icons.search),
-          //             hintText: 'Search your city',
-          //           ),
-          //           onChanged: (value) {
-          //             setState(() {
-          //               city = value;
-          //             });
-          //           },
-          //         )))
+         
+
         ),
       ),
       //drawer: const MainDrawer(),

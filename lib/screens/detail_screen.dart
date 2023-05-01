@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
 import 'package:url_launcher/url_launcher.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -257,6 +255,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Text(
                                       'Description',
@@ -295,7 +294,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                       Icon(Icons.calendar_month_outlined),
                                       SizedBox(width: 10),
                                       Text(
-                                        '  Updated on February 23, 2023',
+                                        '  Updated on May 02, 2023',
                                         style: TextStyle(fontSize: 18),
                                       ),
                                     ])
